@@ -9,7 +9,16 @@
 import UIKit
 
 class TableViewCell: UITableViewCell {
+    
+    
+    @IBOutlet weak var picture: UIImageView!
+    
 
+    @IBOutlet weak var captionLabel: UILabel!
+    
+    @IBOutlet weak var textBodyView: UITextView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

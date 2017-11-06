@@ -10,15 +10,18 @@ import UIKit
 
 class CommentsTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    
+    @IBOutlet weak var imageStringView: UIImageView!
+    @IBOutlet weak var bodyView: UITextView!
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    @IBOutlet weak var titleLabel: UILabel!
 
-        // Configure the view for the selected state
-    }
 
+
+    @IBOutlet weak var dateCreatedLabel: UILabel!
+
+    @IBOutlet weak var varToPassField: UILabel!
+   
+    
+    
 }

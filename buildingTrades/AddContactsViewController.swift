@@ -7,8 +7,22 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class AddContactsViewController: UIViewController {
+    @IBOutlet weak var contactNameLabel: UITextField!
+    
+    @IBOutlet weak var contactCompanyLabel: UITextField!
+    
+    @IBOutlet weak var contactTelephoneLabel: UITextField!
+    
+    
+    @IBOutlet weak var contactAddressLabel: UITextField!
+    
+     var items: [Contractors] = []
+   
+    var refContacts = Database.database().reference().child("contacts")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,20 +30,27 @@ class AddContactsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func saveContactTapped(_ sender: Any) {
+        
+        
+        let key = refContacts.childByAutoId().key
+        
+        //creating artist with the given values
+        let contact = ["field_contact": contactNameLabel.text! as String,
+                            "localtag": "test",
+                            "field_phone": contactTelephoneLabel.text! as String,
+                            "field_address": contactAddressLabel.text! as String,
+                            "field_company": contactCompanyLabel.text! as String]
+        
+        
+        
+        
+        //adding the artist inside the generated unique key
+        refContacts.child(key).setValue(contact)
+        
+        
+        
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+  
 
 }

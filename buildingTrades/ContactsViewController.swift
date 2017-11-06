@@ -7,11 +7,37 @@
 //
 
 import UIKit
+import Firebase
 
-class ContactsViewController: UIViewController {
+class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var tableView: UITableView!
+    let userID = Auth.auth().currentUser!.uid
+    var items: [Contractors] = []
+    var ref = Database.database().reference()
+    let contractorsRef = Database.database().reference(withPath: "contacts")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        contractorsRef.observe(.value, with: { snapshot in
+            // 2
+            var contractors: [Contractors] = []
+            
+            for item in snapshot.children {
+                // 4
+                let groceryItem = Contractors(snapshot: item as! DataSnapshot)
+                contractors.append(groceryItem!)
+            }
+            
+            // 5
+            self.items = contractors
+            self.tableView.reloadData()
+            
+        })
+
 
         // Do any additional setup after loading the view.
     }
@@ -21,6 +47,34 @@ class ContactsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "contractorCell", for: indexPath as IndexPath) as! ContractorTableViewCell
+        
+        let contact = items[indexPath.row]
+        cell.nameLabel.text = "\(contact.field_contact!) | \(contact.field_company!)"
+        cell.bodyField.text = "\(contact.field_phone!) \(contact.field_address!)"
+        
+       
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let contact = items[indexPath.row]
+        print("tapped: \(contact.field_phone)")
+    }
+    
+
 
     /*
     // MARK: - Navigation
