@@ -24,6 +24,30 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Auth.auth().addStateDidChangeListener { auth, user in
+            if user != nil {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "Menu")
+                self.present(vc!, animated: true, completion: nil)
+                
+                let uid = user?.uid
+                print("the uid is \(uid)")
+                
+                
+                let userID = Auth.auth().currentUser!.uid
+                if Messaging.messaging().fcmToken != nil {
+                    Messaging.messaging().subscribe(toTopic: "/topics/\(userID)")
+                    Messaging.messaging().subscribe(toTopic: "/topics/all")
+                    
+                    print("topic created did register notification settings")
+                }
+            }
+                
+                
+            else {
+               //do nothing
+            }
+        }
         emailTextField.delegate = self
         passwordTextField.delegate = self
         

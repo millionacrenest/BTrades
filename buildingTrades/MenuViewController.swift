@@ -89,8 +89,8 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         let groceryItem = items[indexPath.row]
-        let imageString = "https://seattlebt.info\(groceryItem.field_image!)"
-        print("imageString: \(imageString)")
+        let imageString = "https://seattlebt.info\(groceryItem.field_media_single!)"
+        
         
         
         

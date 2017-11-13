@@ -30,6 +30,8 @@
 	<string>Share your location to add notes to the map</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Access your library to upload photos</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Access your library to upload photos</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

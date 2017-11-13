@@ -92,7 +92,7 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
                 as! UIImage
             let imageData = UIImageJPEGRepresentation(image, 0.3)!
             
-            commentImageView.image = image
+            self.commentImageView.image = image
             
             if (newMedia == true) {
                 UIImageWriteToSavedPhotosAlbum(image, self,
@@ -105,7 +105,7 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
         }
         //myImageView.contentMode = .scaleAspectFit //3
         self.dismiss(animated: true, completion: nil)
-        
+         savePhoto()
         
     }
     
@@ -136,11 +136,7 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
 
     @IBAction func saveTapped(_ sender: Any) {
         
-        
-        
 
-        
-        
         let locationsRef = ref.child("nodeLocations")
         
         let thisLocationRef = locationsRef.child(varToReceive)
@@ -197,7 +193,7 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
         
         
-        commentImageView.image?.draw(in: view.bounds)
+        self.commentImageView.image?.draw(in: view.bounds)
         
         
         let context = UIGraphicsGetCurrentContext()
@@ -211,11 +207,14 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
         context?.setBlendMode(CGBlendMode.normal)
         context?.strokePath()
         
-        commentImageView.image = UIGraphicsGetImageFromCurrentImageContext()
-        commentImageView.alpha = opacity
+        self.commentImageView.image = UIGraphicsGetImageFromCurrentImageContext()
+        self.commentImageView.alpha = opacity
         UIGraphicsEndImageContext()
         
-        
+    
+    }
+    
+    func savePhoto(){
         // Get a reference to the location where we'll store our photos
         let photosRef = storage.reference().child("images")
         
@@ -230,18 +229,19 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
         photoRef.putData(imageData, metadata: metadata).observe(.success) { (snapshot) in
             // When the image has successfully uploaded, we get it's download URL
             // self.imageUpoadingLabel.text = "Upload complete"
-           // self.uploadComplete = true
+            
             let text = snapshot.metadata?.downloadURL()?.absoluteString
             
             // Set the download URL to the message box, so that the user can send it to the database
             self.commentImageURL = text!
-            
-            
-            
-            
-            
         }
+        
+        
+        
+        
+        
     }
+    
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         swiped = true
@@ -257,6 +257,7 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
         if !swiped {
             // draw a single point
             self.drawLine(from: lastPoint, to: lastPoint)
+           
         }
     }
     

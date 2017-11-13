@@ -21,6 +21,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     @IBOutlet weak var firstImageView: UIImageView!
  
     
+    @IBOutlet weak var keyboardHeightLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var locationName: UITextField!
     
     
@@ -55,9 +56,11 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     var brushWidth: CGFloat = 10.0
     var opacity: CGFloat = 1.0
     var swiped = false
-    
+    var localtag: String?
+    var tagHere: String?
     
     let picker = UIImagePickerController()
+    let refUser = Database.database().reference().child("users")
    
     
     
@@ -70,9 +73,15 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       getUsers()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        
+       
        // scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 700)
         locationName.delegate = self
         // locationNotes.delegate = self
@@ -90,6 +99,8 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         
         //FirebaseApp.configure()
         refNodeLocations = Database.database().reference().child("nodeLocations")
+        
+      
         
         storage = Storage.storage()
         
@@ -119,6 +130,50 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
      
       
         
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func keyboardNotification(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            let duration:TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+            let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
+            let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
+            let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+            if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
+                self.keyboardHeightLayoutConstraint?.constant = 0.0
+            } else {
+                self.keyboardHeightLayoutConstraint?.constant = endFrame?.size.height ?? 0.0
+            }
+            UIView.animate(withDuration: duration,
+                           delay: TimeInterval(0),
+                           options: animationCurve,
+                           animations: { self.view.layoutIfNeeded() },
+                           completion: nil)
+        }
+    }
+
+    
+    func getUsers() {
+        let query = refUser.queryOrdered(byChild: "field_uid").queryEqual(toValue: userID)
+        query.observe(.value, with: { snapshot in
+            // 2
+            var frontpages: [Staff] = []
+            
+            for item in snapshot.children {
+                // 4
+                let groceryItem = Staff(snapshot: item as! DataSnapshot)
+                
+                
+                self.localtag = groceryItem?.nothing
+                print("Localtag: \(self.localtag!)")
+                
+            }
+           
+        })
     }
     
     func keyboardWillShow(notification: NSNotification) {
@@ -178,7 +233,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         }
         //myImageView.contentMode = .scaleAspectFit //3
         self.dismiss(animated: true, completion: nil)
-        
+        savePhoto()
         
     }
     
@@ -225,7 +280,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
             imagePicker.sourceType =
                 UIImagePickerControllerSourceType.camera
             imagePicker.mediaTypes = [kUTTypeImage as String]
-            imagePicker.allowsEditing = false
+            imagePicker.allowsEditing = true
             
             self.present(imagePicker, animated: true,
                          completion: nil)
@@ -233,7 +288,27 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         }
     }
     
-    func savePhoto(completion: () -> Void){
+    func savePhoto(){
+        // Get a reference to the location where we'll store our photos
+        let photosRef = storage.reference().child("images")
+        
+        // Get a reference to store the file at chat_photos/<FILENAME>
+        let filename = arc4random()
+        let photoRef = photosRef.child("\(filename).png")
+        
+        // Upload file to Firebase Storage
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/png"
+        let imageData = UIImageJPEGRepresentation(myImageView.image!, 0.3)!
+        photoRef.putData(imageData, metadata: metadata).observe(.success) { (snapshot) in
+            // When the image has successfully uploaded, we get it's download URL
+            // self.imageUpoadingLabel.text = "Upload complete"
+            
+            let text = snapshot.metadata?.downloadURL()?.absoluteString
+            
+            // Set the download URL to the message box, so that the user can send it to the database
+            self.locationImageUrl = text!
+        }
      
         
         
@@ -246,23 +321,24 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pickerData.count
+        return 6
     }
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tagsCell", for: indexPath as IndexPath) as! UITableViewCell
         
-        let tagHere = pickerData[indexPath.row]
-        cell.textLabel?.text = tagHere
+        
+        cell.textLabel?.text = pickerData[indexPath.row]
  
         return cell
     }
     
     
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tagHere = pickerData[indexPath.row]
         
-    
-    
+    }
+ 
     
 
     
@@ -271,10 +347,12 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     @IBAction func addLocationTapped(_ sender: Any) {
         
         let key = refNodeLocations.childByAutoId().key
+        if tagHere != nil {
         
         //creating artist with the given values
         let nodeLocation = ["title": locationName.text! as String,
-                            "localtag": "test",
+                            "localtag": localtag,
+                            "sharedWith": tagHere,
                             "LocationLatitude": latitude as Double,
                             "LocationLongitude": longitude as Double,
                             "image": locationImageUrl as! String,
@@ -285,6 +363,25 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         
         //adding the artist inside the generated unique key
         refNodeLocations.child(key).setValue(nodeLocation)
+        } else {
+            //creating artist with the given values
+            let nodeLocation = ["title": locationName.text! as String,
+                                "localtag": localtag,
+                                "sharedWith": "SBT",
+                                "LocationLatitude": latitude as Double,
+                                "LocationLongitude": longitude as Double,
+                                "image": locationImageUrl as! String,
+                                "UID": "\(userID)"] as [String : Any]
+            
+            
+            
+            
+            //adding the artist inside the generated unique key
+            refNodeLocations.child(key).setValue(nodeLocation)
+            
+            
+            
+        }
    
       
             
@@ -368,6 +465,14 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
             self.drawLine(from: lastPoint, to: lastPoint)
         }
     }
+    
+
+    
+    
+    
+    
+    
+    
     
 }
 

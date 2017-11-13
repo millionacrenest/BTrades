@@ -19,6 +19,7 @@ target 'buildingTrades' do
   pod 'TTTAttributedLabel'
   pod 'Firebase/Storage'
   pod 'OneSignal', '>= 2.5.2', '< 3.0'
+  pod 'YouTubePlayer'  
 
   target 'OneSignalNotificationServiceExtension' do
     pod 'OneSignal', '>= 2.5.2', '< 3.0'

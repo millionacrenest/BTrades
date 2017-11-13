@@ -18,7 +18,7 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     
     @IBOutlet weak var mapView: MKMapView!
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+   
    
     
     let locationManager = CLLocationManager()
@@ -26,20 +26,24 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
    
     let regionRadius: CLLocationDistance = 1000
     var varToPass: String!
+    var localtag: String?
+    let userID = Auth.auth().currentUser!.uid
     
    
     
     let locationsRef = Database.database().reference(withPath: "nodeLocations")
+    let refUser = Database.database().reference().child("users")
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        getUsers()
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
        
-        self.mapView.showsUserLocation = true
-        self.mapView.delegate = self
+        self.mapView?.showsUserLocation = true
+        self.mapView?.delegate = self
         
      
         
@@ -54,10 +58,30 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         // Do any additional setup after loading the view.
     }
     
+    
+    func getUsers() {
+        let query = refUser.queryOrdered(byChild: "field_uid").queryEqual(toValue: userID)
+        query.observe(.value, with: { snapshot in
+            // 2
+            var frontpages: [Staff] = []
+            
+            for item in snapshot.children {
+                // 4
+                let groceryItem = Staff(snapshot: item as! DataSnapshot)
+                
+                
+                self.localtag = groceryItem?.nothing
+                print("Localtag: \(self.localtag!)")
+                
+            }
+            
+        })
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
-        let tag = "SBT"
+       
         
-        locationsRef.queryOrdered(byChild:"localtag").queryEqual(toValue:"\(tag)").observe(.value, with: { snapshot in
+        locationsRef.queryOrdered(byChild:"localtag").queryEqual(toValue: localtag!).observe(.value, with: { snapshot in
     
 
             for item in snapshot.children {
@@ -76,8 +100,8 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
                 dropPin.subtitle = key
                 //
                 
-                self.mapView.removeAnnotation(dropPin)
-                self.mapView.addAnnotation(dropPin)
+                self.mapView?.removeAnnotation(dropPin)
+                self.mapView?.addAnnotation(dropPin)
                 
                 
                 

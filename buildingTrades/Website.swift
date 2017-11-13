@@ -19,11 +19,11 @@ struct Website {
     let ref: DatabaseReference?
     let body: String?
     var title: String?
-    let field_image: String?
+    let field_media_single: String?
     let term_node_tid: String?
     let field_document_file: String?
     let name: String?
-    
+    let field_image: String?
     let field_tag: String?
     let field_date_of_event: String?
     let field_telephone_link: String?
@@ -33,7 +33,7 @@ struct Website {
     var comments: [Comments]!
     
     
-    init(title: String, field_webform: String, field_web_address: String, field_telephone_link: String, field_date_of_event: String, field_tag: String, field_document_file: String, term_node_tid: String, body: String, field_image: String, key: String = "", name: String, comments: [Comments]) {
+    init(field_media_single: String, title: String, field_webform: String, field_web_address: String, field_telephone_link: String, field_date_of_event: String, field_tag: String, field_document_file: String, term_node_tid: String, body: String, field_image: String, key: String = "", name: String, comments: [Comments]) {
         self.key = key
         self.title = title
         self.body = body
@@ -48,6 +48,7 @@ struct Website {
         self.field_date_of_event = field_date_of_event
         self.field_tag = field_tag
         self.comments = comments
+        self.field_media_single = field_media_single
         
         
     }
@@ -69,6 +70,7 @@ struct Website {
         field_telephone_link = snapshotValue?["field_telephone_link"] as? String
         field_date_of_event = snapshotValue?["field_date_of_event"] as? String
         field_tag = snapshotValue?["field_tag"] as? String
+        field_media_single = snapshotValue?["field_media_single"] as? String
         comments = (snapshotValue?["comments"] as? [DataSnapshot])?.map({ Comments(snapshot: $0) })
         
         
@@ -91,6 +93,7 @@ struct Website {
             "field_telephone_link": field_telephone_link,
             "field_web_address": field_web_address,
             "field_webform": field_webform,
+            "field_media_single": field_media_single,
             "comments": comments
             
         ]

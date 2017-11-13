@@ -10,7 +10,7 @@ import UIKit
 
 class MenuTooViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let links_arr = ["Map", "Videos", "Resources", "Contacts", "Events", "Search"]
+    let links_arr = ["Map", "Videos", "Resources", "Contacts", "Events", "Search", "User Account", "Facebook", "Website"]
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -68,6 +68,21 @@ class MenuTooViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         if indexPath.row == 5 {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "Search")
+            self.present(vc!, animated: true, completion: nil)
+            
+        }
+        if indexPath.row == 6 {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserTools")
+            self.present(vc!, animated: true, completion: nil)
+            
+        }
+        if indexPath.row == 7 {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Facebook")
+            self.present(vc!, animated: true, completion: nil)
+            
+        }
+        if indexPath.row == 8 {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Website")
             self.present(vc!, animated: true, completion: nil)
             
         }
