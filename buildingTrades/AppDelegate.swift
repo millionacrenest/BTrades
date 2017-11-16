@@ -13,6 +13,7 @@ import FirebaseMessaging
 import FirebaseAuth
 import UserNotifications
 import Foundation
+import PhotoEditorSDK
 
 
 
@@ -23,13 +24,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     static var menu_bool = true
     
     
-    let gcmMessageIDKey = "gcm.message_id"
     
+    let gcmMessageIDKey = "gcm.message_id"
+   
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
+       
         
         // Override point for customization after application launch.
         // [START register_for_notifications]
@@ -64,6 +67,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
 
+
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        if let licenseURL = Bundle.main.url(forResource: "ios_license", withExtension: "dms") {
+            PESDK.unlockWithLicense(at: licenseURL)
+        }
+        
+        return true
+    }
     
     
     

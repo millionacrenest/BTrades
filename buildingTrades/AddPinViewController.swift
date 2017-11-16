@@ -11,12 +11,12 @@ import MapKit
 import CoreLocation
 import Firebase
 import FirebaseDatabase
+import FirebaseAuth
 import MobileCoreServices
+import PhotoEditorSDK
 
 
-
-
-class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
+class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var firstImageView: UIImageView!
  
@@ -26,7 +26,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     
     
     
-    @IBOutlet weak var myImageView: UIImageView!
+  
     
     
     @IBOutlet weak var coordinatesLabel: UILabel!
@@ -40,27 +40,24 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     
     let locationManager =  CLLocationManager()
     let newPin = MKPointAnnotation()
-    var locationImageUrl: String?
+    var locationImageUrl: URL?
     var longitude: Double = 0
     var latitude: Double = 0
     var ref = Database.database().reference()
-    var refNodeLocations: DatabaseReference!
     var storage: Storage!
     var newMedia: Bool?
     let userID = Auth.auth().currentUser!.uid
-    
-    var lastPoint = CGPoint.zero
-    var red: CGFloat = 0.0
-    var green: CGFloat = 0.0
-    var blue: CGFloat = 0.0
-    var brushWidth: CGFloat = 10.0
-    var opacity: CGFloat = 1.0
-    var swiped = false
+
     var localtag: String?
     var tagHere: String?
+    var filename: String?
+    var image: UIImage?
+    var data: Data?
     
-    let picker = UIImagePickerController()
+
     let refUser = Database.database().reference().child("users")
+    var refNodeLocations = Database.database().reference().child("nodeLocations")
+   
    
     
     
@@ -68,44 +65,30 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     var pickerData = ["SeattleBT", "opcmia528", "Painters", "test", "Item 5", "Item 6"]
     
     
-    var uploadComplete = false
+   
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
     
     
  
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       getUsers()
-        
+        getUsers()
+ 
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         
-       
-       // scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 700)
-        locationName.delegate = self
-        // locationNotes.delegate = self
-      //  tagsTextField.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(AddPinViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AddPinViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
+  
         tableView.delegate = self
         tableView.dataSource = self
-        
-        myImageView.clipsToBounds = true
-        myImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        picker.delegate = self
-        
-        //FirebaseApp.configure()
-        refNodeLocations = Database.database().reference().child("nodeLocations")
-        
-      
+     
+//
+
+
         
         storage = Storage.storage()
-        
-        
-        // User's location
+        storage.maxOperationRetryTime = 100000
+      
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -117,20 +100,11 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         locationManager.startUpdatingLocation()
         
         self.tableView.allowsMultipleSelection = true
-        
-        //generating a new key inside artists node
-        //and also getting the generated key
-       
-        // Get a reference to the location where we'll store our photos
-        //  let userID = UserDefaults.standard.value(forKey: "uid") as! String
-        //  let usersRef = refNodeLocations.child(byAppendingPath: "users").child(byAppendingPath: userID)
-        
-        
-        
+
      
-      
-        
     }
+    
+
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -161,7 +135,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         let query = refUser.queryOrdered(byChild: "field_uid").queryEqual(toValue: userID)
         query.observe(.value, with: { snapshot in
             // 2
-            var frontpages: [Staff] = []
+            
             
             for item in snapshot.children {
                 // 4
@@ -169,28 +143,28 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
                 
                 
                 self.localtag = groceryItem?.nothing
-                print("Localtag: \(self.localtag!)")
+                print("Localtag on add pin: \(self.localtag!)")
                 
             }
            
         })
     }
     
-    func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-    
-    func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0{
-                self.view.frame.origin.y += keyboardSize.height
-            }
-        }
-    }
+//    func keyboardWillShow(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y == 0{
+//                self.view.frame.origin.y -= keyboardSize.height
+//            }
+//        }
+//    }
+//
+//    func keyboardWillHide(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y != 0{
+//                self.view.frame.origin.y += keyboardSize.height
+//            }
+//        }
+//    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //mapView.removeAnnotation(newPin)
@@ -205,116 +179,55 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         longitude = locValue.longitude
         
     }
-    
-    
-    
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        let mediaType = info[UIImagePickerControllerMediaType] as! NSString
-        
-        
-        
-        if mediaType.isEqual(to: kUTTypeImage as String) {
-            let image = info[UIImagePickerControllerOriginalImage]
-                as! UIImage
-            let imageData = UIImageJPEGRepresentation(image, 0.3)!
-            
-            myImageView.image = image
-            
-            if (newMedia == true) {
-                UIImageWriteToSavedPhotosAlbum(image, self,
-                                               #selector(AddPinViewController.image(image:didFinishSavingWithError:contextInfo:)), nil)
-            } else if mediaType.isEqual(to: kUTTypeMovie as String) {
-                // Code to support video here
+
+    private func buildConfiguration() -> Configuration {
+        let configuration = Configuration() { builder in
+            // Configure camera
+            builder.configureCameraViewController() { options in
+                // Just enable Photos
+                options.allowedRecordingModes = [.photo]
             }
-            
-            
         }
-        //myImageView.contentMode = .scaleAspectFit //3
-        self.dismiss(animated: true, completion: nil)
-        savePhoto()
         
+        return configuration
     }
-    
-    func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo:UnsafeRawPointer) {
-        
-        if error != nil {
-            let alert = UIAlertController(title: "Save Failed",
-                                          message: "Failed to save image",
-                                          preferredStyle: UIAlertControllerStyle.alert)
-            
-            let cancelAction = UIAlertAction(title: "OK",
-                                             style: .cancel, handler: nil)
-            
-            alert.addAction(cancelAction)
-            self.present(alert, animated: true,
-                         completion: nil)
+    private func presentCameraViewController() {
+        let configuration = buildConfiguration()
+        let cameraViewController = CameraViewController(configuration: configuration)
+        cameraViewController.completionBlock = { [unowned cameraViewController] image, videoURL in
+            if let image = image {
+                cameraViewController.present(self.createPhotoEditViewController(with: image), animated: true, completion: nil)
+            }
         }
-    }
-    
-    
-    
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true, completion: nil)
         
+        present(cameraViewController, animated: true, completion: nil)
     }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.locationName.resignFirstResponder()
-        // self.locationNotes.resignFirstResponder()
-       // self.tagsTextField.resignFirstResponder()
-        return true
+
+    private func createPhotoEditViewController(with photo: UIImage) -> PhotoEditViewController {
+        let configuration = buildConfiguration()
+        var menuItems = PhotoEditMenuItem.defaultItems
+        menuItems.removeLast() // Remove last menu item ('Magic')
+        
+        // Create a photo edit view controller
+        let photoEditViewController = PhotoEditViewController(photo: photo, configuration: configuration, menuItems: menuItems)
+        photoEditViewController.delegate = self
+        
+        return photoEditViewController
     }
-    
+    private func presentPhotoEditViewController() {
+        guard let photo = UIImage(named: "129968.jpg") else {
+            return
+        }
+        
+        present(createPhotoEditViewController(with: photo), animated: true, completion: nil)
+    }
+
     
     @IBAction func useCamera(_ sender: Any) {
-        
-        if UIImagePickerController.isSourceTypeAvailable(
-            UIImagePickerControllerSourceType.camera) {
-            
-            let imagePicker = UIImagePickerController()
-            
-            imagePicker.delegate = self
-            imagePicker.sourceType =
-                UIImagePickerControllerSourceType.camera
-            imagePicker.mediaTypes = [kUTTypeImage as String]
-            imagePicker.allowsEditing = true
-            
-            self.present(imagePicker, animated: true,
-                         completion: nil)
-            newMedia = true
-        }
+        presentCameraViewController()
+
     }
-    
-    func savePhoto(){
-        // Get a reference to the location where we'll store our photos
-        let photosRef = storage.reference().child("images")
-        
-        // Get a reference to store the file at chat_photos/<FILENAME>
-        let filename = arc4random()
-        let photoRef = photosRef.child("\(filename).png")
-        
-        // Upload file to Firebase Storage
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/png"
-        let imageData = UIImageJPEGRepresentation(myImageView.image!, 0.3)!
-        photoRef.putData(imageData, metadata: metadata).observe(.success) { (snapshot) in
-            // When the image has successfully uploaded, we get it's download URL
-            // self.imageUpoadingLabel.text = "Upload complete"
-            
-            let text = snapshot.metadata?.downloadURL()?.absoluteString
-            
-            // Set the download URL to the message box, so that the user can send it to the database
-            self.locationImageUrl = text!
-        }
-     
-        
-        
-        
-        
-    }
+
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -338,141 +251,197 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         self.tagHere = pickerData[indexPath.row]
         
     }
- 
     
+//    func drawOnImage(startingImage: UIImage) -> UIImage {
+//
+//        // Create a context of the starting image size and set it as the current one
+//        UIGraphicsBeginImageContext(startingImage.size)
+//
+//        // Draw the starting image in the current context as background
+//        startingImage.draw(at: CGPoint.zero)
+//
+//        // Get the current context
+//        let context = UIGraphicsGetCurrentContext()!
+//
+//        // Draw a red line
+//        context.setLineWidth(2.0)
+//        context.setStrokeColor(UIColor.red.cgColor)
+//        context.move(to: CGPoint(x: 100, y: 100))
+//        context.addLine(to: CGPoint(x: 200, y: 200))
+//        context.strokePath()
+//
+//        // Draw a transparent green Circle
+//        context.setStrokeColor(UIColor.green.cgColor)
+//        context.setAlpha(0.5)
+//        context.setLineWidth(10.0)
+//        context.addEllipse(in: CGRect(x: 100, y: 100, width: 100, height: 100))
+//        context.drawPath(using: .stroke) // or .fillStroke if need filling
+//
+//        // Save the context as a new UIImage
+//        let myImageView = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//
+//        // Return modified image
+//        return myImageView!
+//    }
+//
+    func getLocationUrl() {
+        let photoRef = storage.reference().child("images/\(filename!)")
+        print("photo ref: \(photoRef)")
+        
+        // Fetch the download URL
+        photoRef.downloadURL { url, error in
+       
+                self.locationImageUrl = url
+                
+            
+        }
+        
+    }
 
     
     
-    
-    @IBAction func addLocationTapped(_ sender: Any) {
-        
-        let key = refNodeLocations.childByAutoId().key
-        if tagHere != nil {
-        
-        //creating artist with the given values
-        let nodeLocation = ["title": locationName.text! as String,
-                            "localtag": localtag,
-                            "sharedWith": tagHere,
-                            "LocationLatitude": latitude as Double,
-                            "LocationLongitude": longitude as Double,
-                            "image": locationImageUrl as! String,
-                            "UID": "\(userID)"] as [String : Any]
+    func saveData(){
+   
         
         
-        
-        
-        //adding the artist inside the generated unique key
-        refNodeLocations.child(key).setValue(nodeLocation)
-        } else {
+            var refNodeLocationsLocal = Database.database().reference().child("nodeLocations/\(self.localtag!)")
+            let key = self.refNodeLocations.childByAutoId().key
+            if self.tagHere != nil {
+                var refNodeLocationsShared = Database.database().reference().child("nodeLocations/\(self.tagHere!)")
+            
             //creating artist with the given values
-            let nodeLocation = ["title": locationName.text! as String,
-                                "localtag": localtag,
-                                "sharedWith": "SBT",
-                                "LocationLatitude": latitude as Double,
-                                "LocationLongitude": longitude as Double,
-                                "image": locationImageUrl as! String,
-                                "UID": "\(userID)"] as [String : Any]
-            
-            
-            
+                let nodeLocation = ["title": self.locationName.text! as String,
+                                    "localtag": self.localtag,
+                                    "sharedWith": self.tagHere,
+                                    "LocationLatitude": self.latitude as Double,
+                                    "LocationLongitude": self.longitude as Double,
+                                    "image": self.locationImageUrl as! String,
+                                    "UID": "\(self.userID)"] as [String : Any]
             
             //adding the artist inside the generated unique key
-            refNodeLocations.child(key).setValue(nodeLocation)
             
+            refNodeLocationsLocal.child(key).setValue(nodeLocation)
+            refNodeLocationsShared.child(key).setValue(nodeLocation)
+                self.refNodeLocations.child(key).setValue(nodeLocation)
+        } else {
+            //creating artist with the given values
+                let nodeLocation = ["title": self.locationName.text! as String,
+                                    "localtag": self.localtag,
+                                "sharedWith": "SBT",
+                                "LocationLatitude": self.latitude as Double,
+                                "LocationLongitude": self.longitude as Double,
+                                "image": self.locationImageUrl as! String,
+                                "UID": "\(self.userID)"] as [String : Any]
             
+            //adding the artist inside the generated unique key
+            refNodeLocationsLocal.child(key).setValue(nodeLocation)
+                self.refNodeLocations.child(key).setValue(nodeLocation)
             
-        }
-   
-      
+                }
             
-            
-        
-
-    
-        
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        swiped = false
-        if let touch = touches.first {
-            lastPoint = touch.location(in: self.view)
-        }
-    }
+//    func this() {
+//        if self.locationImageUrl == "" {
+//
+//    //Alert to tell the user that there was an error because they didn't fill anything in the textfields because they didn't fill anything in
+//
+//    let alertController = UIAlertController(title: "Error", message: "Your image is did not load. Please try again.", preferredStyle: .alert)
+//
+//    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+//    alertController.addAction(defaultAction)
+//
+//    self.present(alertController, animated: true, completion: nil)
+//
+//
+//    } else {
+//
+//    if self.locationImageUrl != nil {
+//
+//
+//
+//    //Print into the console if successfully logged in
+//        saveData()
+//
+//
+//    //Go to the HomeViewController if the login is sucessful
+//    let vc = self.storyboard?.instantiateViewController(withIdentifier: "Map")
+//    self.present(vc!, animated: true, completion: nil)
+//
+//    } else {
+//
+//    //Tells the user that there is an error and then gets firebase to tell them the error
+//    let alertController = UIAlertController(title: "Error", message: "Upload failed. Please check your connection.", preferredStyle: .alert)
+//
+//    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+//    alertController.addAction(defaultAction)
+//
+//    self.present(alertController, animated: true, completion: nil)
+//
+//    //Go to the HomeViewController if the login is sucessful
+//    //                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignUp")
+//    //                    self.present(vc!, animated: true, completion: nil)
+//    }
+//
+//
+//    }
+//        }
     
-    func drawLine(from fromPoint: CGPoint, to toPoint: CGPoint) {
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
+    @IBAction func addLocationTapped(_ sender: Any) {
+        locationManager.stopUpdatingLocation()
+            getLocationUrl()
+        let when = DispatchTime.now() + 60 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            // Your code with delay
+             self.saveData()
+        }
+        
+            // Your code with delay
         
         
-        myImageView.image?.draw(in: view.bounds)
         
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "Map")
+        self.present(vc!, animated: true, completion: nil)
+        }
 
-        let context = UIGraphicsGetCurrentContext()
-        
-        context?.move(to: fromPoint)
-        context?.addLine(to: toPoint)
-        
-        context?.setLineCap(CGLineCap.round)
-        context?.setLineWidth(brushWidth)
-        context?.setStrokeColor(red: red, green: green, blue: blue, alpha: 1.0)
-        context?.setBlendMode(CGBlendMode.normal)
-        context?.strokePath()
-        
-        myImageView.image = UIGraphicsGetImageFromCurrentImageContext()
-        myImageView.alpha = opacity
-        UIGraphicsEndImageContext()
-        
-        
-        // Get a reference to the location where we'll store our photos
+
+    
+}
+
+extension AddPinViewController: PhotoEditViewControllerDelegate {
+    func photoEditViewController(_ photoEditViewController: PhotoEditViewController, didSave image: UIImage, and data: Data) {
+
+        //  Get a reference to the location where we'll store our photos
         let photosRef = storage.reference().child("images")
         
         // Get a reference to store the file at chat_photos/<FILENAME>
-        let filename = arc4random()
-        let photoRef = photosRef.child("\(filename).png")
+        self.filename = ("\(arc4random())")
+        print("filename: \(filename!)")
+        let photoRef = photosRef.child("\(filename!).png")
         
         // Upload file to Firebase Storage
         let metadata = StorageMetadata()
         metadata.contentType = "image/png"
-        let imageData = UIImageJPEGRepresentation(myImageView.image!, 0.3)!
-        photoRef.putData(imageData, metadata: metadata).observe(.success) { (snapshot) in
-            // When the image has successfully uploaded, we get it's download URL
-            // self.imageUpoadingLabel.text = "Upload complete"
-            self.uploadComplete = true
-            let text = snapshot.metadata?.downloadURL()?.absoluteString
-            
-            // Set the download URL to the message box, so that the user can send it to the database
-            self.locationImageUrl = text!
-            
-            
-            
-            
-            
-        }
+        let imageData = UIImageJPEGRepresentation(image, 0.3)!
+        
+        photoRef.putData(imageData, metadata: metadata).observe(.success) {
+            (snapshot) in }
+         self.dismiss(animated: true, completion: nil)
+       
+        
+        
+        
+    }
+        
+    
+    
+    func photoEditViewControllerDidFailToGeneratePhoto(_ photoEditViewController: PhotoEditViewController) {
+        dismiss(animated: true, completion: nil)
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        swiped = true
-        if let touch = touches.first {
-            let currentPoint = touch.location(in: view)
-            drawLine(from: lastPoint, to: currentPoint)
-            
-            lastPoint = currentPoint
-        }
+    func photoEditViewControllerDidCancel(_ photoEditViewController: PhotoEditViewController) {
+        dismiss(animated: true, completion: nil)
     }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !swiped {
-            // draw a single point
-            self.drawLine(from: lastPoint, to: lastPoint)
-        }
-    }
-    
-
-    
-    
-    
-    
-    
-    
-    
 }
 

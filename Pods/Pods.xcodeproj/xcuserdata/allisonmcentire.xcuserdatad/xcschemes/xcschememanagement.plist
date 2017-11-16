@@ -34,11 +34,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-buildingTrades-OneSignalNotificationServiceExtension.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-buildingTrades.xcscheme</key>
 		<dict>
 			<key>isShown</key>

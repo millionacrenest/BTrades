@@ -28,9 +28,7 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     var varToPass: String!
     var localtag: String?
     let userID = Auth.auth().currentUser!.uid
-    
-   
-    
+
     let locationsRef = Database.database().reference(withPath: "nodeLocations")
     let refUser = Database.database().reference().child("users")
 
@@ -68,10 +66,9 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
             for item in snapshot.children {
                 // 4
                 let groceryItem = Staff(snapshot: item as! DataSnapshot)
-                
-                
+
                 self.localtag = groceryItem?.nothing
-                print("Localtag: \(self.localtag!)")
+                print("Localtag on: \(self.localtag!)")
                 
             }
             
@@ -80,8 +77,8 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     
     override func viewDidAppear(_ animated: Bool) {
        
-        
-        locationsRef.queryOrdered(byChild:"localtag").queryEqual(toValue: localtag!).observe(.value, with: { snapshot in
+        let query = locationsRef.child(localtag!)
+        query.queryOrdered(byChild:"localtag").queryEqual(toValue: localtag!).observe(.value, with: { snapshot in
     
 
             for item in snapshot.children {
@@ -148,6 +145,7 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         if segue.identifier == "editDetail" {
             if let toViewController = segue.destination as? SiteDetailViewController {
                 toViewController.varToReceive = varToPass
+            
             }
         }
     }

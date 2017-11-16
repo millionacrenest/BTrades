@@ -14,8 +14,6 @@
 		CB1A8A2E1F54E51F0087F29F /* Contractors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1A8A2D1F54E51F0087F29F /* Contractors.swift */; };
 		CB1A8A301F54E6010087F29F /* ContractorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1A8A2F1F54E6010087F29F /* ContractorTableViewCell.swift */; };
 		CB1A8A321F54EC610087F29F /* AddContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1A8A311F54EC610087F29F /* AddContactsViewController.swift */; };
-		CB1A8A3B1F54F5F30087F29F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1A8A3A1F54F5F30087F29F /* NotificationService.swift */; };
-		CB1A8A3F1F54F5F30087F29F /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CB1A8A381F54F5F30087F29F /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CB1A8A451F54F63B0087F29F /* NotificationFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1A8A441F54F63B0087F29F /* NotificationFile.swift */; };
 		CB2098D91FAFF4BF0067F8FA /* MenuTooViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2098D81FAFF4BF0067F8FA /* MenuTooViewController.swift */; };
 		CB2098DB1FAFF5EC0067F8FA /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2098DA1FAFF5EC0067F8FA /* MenuTableViewCell.swift */; };
@@ -32,10 +30,14 @@
 		CB36B8A81F52510600E0C706 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB36B8A71F52510600E0C706 /* Comments.swift */; };
 		CB4BE5BD1FB9C74A008CDD8C /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4BE5BC1FB9C74A008CDD8C /* VideoPlayerViewController.swift */; };
 		CB4BE5BF1FB9C95A008CDD8C /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4BE5BE1FB9C95A008CDD8C /* Media.swift */; };
+		CB4BE5C11FB9D45D008CDD8C /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4BE5C01FB9D45D008CDD8C /* EventsViewController.swift */; };
+		CB4BE5C41FB9D497008CDD8C /* EventsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4BE5C31FB9D497008CDD8C /* EventsDetailViewController.swift */; };
 		CB5251891FAFD94800C49709 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB5251881FAFD94700C49709 /* GoogleService-Info.plist */; };
 		CB52518B1FAFDD3000C49709 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52518A1FAFDD3000C49709 /* LoginViewController.swift */; };
 		CB52518D1FAFE6E400C49709 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52518C1FAFE6E400C49709 /* WelcomeViewController.swift */; };
-		CB97BAF81FB91496004E1232 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB97BAEC1FB91382004E1232 /* PhotoEditingViewController.swift */; };
+		CB54C56E1FB9FC5A00CE108F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB22FA471F52428800973823 /* Info.plist */; };
+		CB819D361FBA702E00A94471 /* ios_license.dms in Resources */ = {isa = PBXBuildFile; fileRef = CB819D351FBA702E00A94471 /* ios_license.dms */; };
+		CB819D381FBA713600A94471 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB819D371FBA713600A94471 /* ViewController.swift */; };
 		CB97BAFA1FB91FF9004E1232 /* ImageWriterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB97BAF91FB91FF9004E1232 /* ImageWriterViewController.swift */; };
 		CB97BAFC1FB93428004E1232 /* Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB97BAFB1FB93428004E1232 /* Staff.swift */; };
 		CBA6F0521F53C7E40049F821 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBA6F0501F53C7E40049F821 /* Main.storyboard */; };
@@ -51,17 +53,9 @@
 		CBECD0CC1FB974F600277347 /* WebsiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBECD0CB1FB974F600277347 /* WebsiteViewController.swift */; };
 		CBECD0CE1FB9764600277347 /* FacebookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBECD0CD1FB9764600277347 /* FacebookViewController.swift */; };
 		CBECD0D01FB9C65100277347 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBECD0CF1FB9C65100277347 /* VideoViewController.swift */; };
-		D5B189D81F59559214DB503D /* Pods_buildingTrades_OneSignalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95270A9BB86F2E85F52FB35C /* Pods_buildingTrades_OneSignalNotificationServiceExtension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CB1A8A3D1F54F5F30087F29F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CB22FA2D1F52428800973823 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CB1A8A371F54F5F30087F29F;
-			remoteInfo = OneSignalNotificationServiceExtension;
-		};
 		CB22FA4D1F52428800973823 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CB22FA2D1F52428800973823 /* Project object */;
@@ -85,7 +79,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				CB1A8A3F1F54F5F30087F29F /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -100,15 +93,11 @@
 		95270A9BB86F2E85F52FB35C /* Pods_buildingTrades_OneSignalNotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_buildingTrades_OneSignalNotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97E113C140C99DB3A4CFABC5 /* Pods-buildingTrades.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-buildingTrades.release.xcconfig"; path = "Pods/Target Support Files/Pods-buildingTrades/Pods-buildingTrades.release.xcconfig"; sourceTree = "<group>"; };
 		982DD0633404D855CD38B527 /* Pods_buildingTradesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_buildingTradesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A8CEEA945CF7D8E5142B9BD /* Pods-buildingTrades-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-buildingTrades-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-buildingTrades-OneSignalNotificationServiceExtension/Pods-buildingTrades-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		CB1A8A2B1F54E00C0087F29F /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		CB1A8A2D1F54E51F0087F29F /* Contractors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contractors.swift; sourceTree = "<group>"; };
 		CB1A8A2F1F54E6010087F29F /* ContractorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractorTableViewCell.swift; sourceTree = "<group>"; };
 		CB1A8A311F54EC610087F29F /* AddContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContactsViewController.swift; sourceTree = "<group>"; };
 		CB1A8A331F54F3700087F29F /* buildingTrades.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = buildingTrades.entitlements; sourceTree = "<group>"; };
-		CB1A8A381F54F5F30087F29F /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB1A8A3A1F54F5F30087F29F /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		CB1A8A3C1F54F5F30087F29F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB1A8A441F54F63B0087F29F /* NotificationFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationFile.swift; sourceTree = "<group>"; };
 		CB2098D81FAFF4BF0067F8FA /* MenuTooViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTooViewController.swift; sourceTree = "<group>"; };
 		CB2098DA1FAFF5EC0067F8FA /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
@@ -131,12 +120,13 @@
 		CB36B8A71F52510600E0C706 /* Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		CB4BE5BC1FB9C74A008CDD8C /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		CB4BE5BE1FB9C95A008CDD8C /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		CB4BE5C01FB9D45D008CDD8C /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
+		CB4BE5C31FB9D497008CDD8C /* EventsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsDetailViewController.swift; sourceTree = "<group>"; };
 		CB5251881FAFD94700C49709 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB52518A1FAFDD3000C49709 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CB52518C1FAFE6E400C49709 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		CB97BAEC1FB91382004E1232 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
-		CB97BAEF1FB91382004E1232 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		CB97BAF11FB91382004E1232 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB819D351FBA702E00A94471 /* ios_license.dms */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ios_license.dms; sourceTree = "<group>"; };
+		CB819D371FBA713600A94471 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CB97BAF91FB91FF9004E1232 /* ImageWriterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWriterViewController.swift; sourceTree = "<group>"; };
 		CB97BAFB1FB93428004E1232 /* Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Staff.swift; sourceTree = "<group>"; };
 		CBA6F0511F53C7E40049F821 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -148,9 +138,6 @@
 		CBAA74CB1F53B1C1005D9C8C /* CommentPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentPostViewController.swift; sourceTree = "<group>"; };
 		CBBAA2131FB90ADE003B7851 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		CBBAA2151FB90ADE003B7851 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
-		CBBAA2181FB90ADE003B7851 /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
-		CBBAA21B1FB90ADE003B7851 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		CBBAA21D1FB90ADE003B7851 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBEB97101FB903BC005DCF04 /* UserAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountViewController.swift; sourceTree = "<group>"; };
 		CBECD0C51FB96A0300277347 /* ResourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewController.swift; sourceTree = "<group>"; };
 		CBECD0C71FB96E8100277347 /* PDFReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFReadViewController.swift; sourceTree = "<group>"; };
@@ -158,20 +145,11 @@
 		CBECD0CD1FB9764600277347 /* FacebookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FacebookViewController.swift; path = buildingTrades/FacebookViewController.swift; sourceTree = "<group>"; };
 		CBECD0CF1FB9C65100277347 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		D15C599694367BA8BB2D6F0B /* Pods-buildingTradesUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-buildingTradesUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-buildingTradesUITests/Pods-buildingTradesUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		D9206D6F00642099AD9B3433 /* Pods-buildingTrades-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-buildingTrades-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-buildingTrades-OneSignalNotificationServiceExtension/Pods-buildingTrades-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		E8246E222DC2327FB081895B /* Pods_buildingTrades.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_buildingTrades.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F16B40F8CFB959F576C9B042 /* Pods_buildingTradesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_buildingTradesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CB1A8A351F54F5F30087F29F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D5B189D81F59559214DB503D /* Pods_buildingTrades_OneSignalNotificationServiceExtension.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CB22FA321F52428800973823 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -221,31 +199,18 @@
 				038FFFBFA04A33FBD00980FA /* Pods-buildingTradesTests.release.xcconfig */,
 				D15C599694367BA8BB2D6F0B /* Pods-buildingTradesUITests.debug.xcconfig */,
 				03E703F5EAF1DFACA5808245 /* Pods-buildingTradesUITests.release.xcconfig */,
-				9A8CEEA945CF7D8E5142B9BD /* Pods-buildingTrades-OneSignalNotificationServiceExtension.debug.xcconfig */,
-				D9206D6F00642099AD9B3433 /* Pods-buildingTrades-OneSignalNotificationServiceExtension.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		CB1A8A391F54F5F30087F29F /* OneSignalNotificationServiceExtension */ = {
-			isa = PBXGroup;
-			children = (
-				CB1A8A3A1F54F5F30087F29F /* NotificationService.swift */,
-				CB1A8A3C1F54F5F30087F29F /* Info.plist */,
-			);
-			path = OneSignalNotificationServiceExtension;
 			sourceTree = "<group>";
 		};
 		CB22FA2C1F52428800973823 = {
 			isa = PBXGroup;
 			children = (
+				CB819D351FBA702E00A94471 /* ios_license.dms */,
 				CBECD0CD1FB9764600277347 /* FacebookViewController.swift */,
 				CB22FA371F52428800973823 /* buildingTrades */,
 				CB22FA4F1F52428800973823 /* buildingTradesTests */,
 				CB22FA5A1F52428800973823 /* buildingTradesUITests */,
-				CB1A8A391F54F5F30087F29F /* OneSignalNotificationServiceExtension */,
-				CBBAA2171FB90ADE003B7851 /* MyPhotoExt */,
-				CB97BAEB1FB91382004E1232 /* photoMarkup */,
 				CB22FA361F52428800973823 /* Products */,
 				867F554F6D0B06588A0F6286 /* Pods */,
 				1463C0026F773AE00A255497 /* Frameworks */,
@@ -258,7 +223,6 @@
 				CB22FA351F52428800973823 /* buildingTrades.app */,
 				CB22FA4C1F52428800973823 /* buildingTradesTests.xctest */,
 				CB22FA571F52428800973823 /* buildingTradesUITests.xctest */,
-				CB1A8A381F54F5F30087F29F /* OneSignalNotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -270,11 +234,11 @@
 				CB1A8A331F54F3700087F29F /* buildingTrades.entitlements */,
 				CB22FA381F52428800973823 /* AppDelegate.swift */,
 				CBA6F0501F53C7E40049F821 /* Main.storyboard */,
-				CB4BE5BC1FB9C74A008CDD8C /* VideoPlayerViewController.swift */,
-				CBECD0CF1FB9C65100277347 /* VideoViewController.swift */,
-				CBECD0CB1FB974F600277347 /* WebsiteViewController.swift */,
+				CB819D371FBA713600A94471 /* ViewController.swift */,
+				CB4BE5C51FB9D49F008CDD8C /* Events */,
+				CB4BE5C21FB9D465008CDD8C /* videos */,
 				CBECD0C91FB973A400277347 /* Resources */,
-				CBECD0CA1FB973C200277347 /* trash */,
+				CBECD0CA1FB973C200277347 /* contacts */,
 				CBAA74C61F53A679005D9C8C /* map */,
 				CB36B8AB1F53254A00E0C706 /* models */,
 				CB36B8AC1F53256700E0C706 /* navigation */,
@@ -322,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				CBEB97101FB903BC005DCF04 /* UserAccountViewController.swift */,
+				CBECD0CB1FB974F600277347 /* WebsiteViewController.swift */,
 				CB36B8A11F524D3400E0C706 /* TableViewCell.swift */,
 				CB36B8A31F524F2A00E0C706 /* MenuViewController.swift */,
 				CB36B89F1F5249EE00E0C706 /* SignUpViewController.swift */,
@@ -332,14 +297,22 @@
 			name = navigation;
 			sourceTree = "<group>";
 		};
-		CB97BAEB1FB91382004E1232 /* photoMarkup */ = {
+		CB4BE5C21FB9D465008CDD8C /* videos */ = {
 			isa = PBXGroup;
 			children = (
-				CB97BAEC1FB91382004E1232 /* PhotoEditingViewController.swift */,
-				CB97BAEE1FB91382004E1232 /* MainInterface.storyboard */,
-				CB97BAF11FB91382004E1232 /* Info.plist */,
+				CB4BE5BC1FB9C74A008CDD8C /* VideoPlayerViewController.swift */,
+				CBECD0CF1FB9C65100277347 /* VideoViewController.swift */,
 			);
-			path = photoMarkup;
+			name = videos;
+			sourceTree = "<group>";
+		};
+		CB4BE5C51FB9D49F008CDD8C /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				CB4BE5C31FB9D497008CDD8C /* EventsDetailViewController.swift */,
+				CB4BE5C01FB9D45D008CDD8C /* EventsViewController.swift */,
+			);
+			name = Events;
 			sourceTree = "<group>";
 		};
 		CBAA74C61F53A679005D9C8C /* map */ = {
@@ -354,16 +327,6 @@
 			name = map;
 			sourceTree = "<group>";
 		};
-		CBBAA2171FB90ADE003B7851 /* MyPhotoExt */ = {
-			isa = PBXGroup;
-			children = (
-				CBBAA2181FB90ADE003B7851 /* PhotoEditingViewController.swift */,
-				CBBAA21A1FB90ADE003B7851 /* MainInterface.storyboard */,
-				CBBAA21D1FB90ADE003B7851 /* Info.plist */,
-			);
-			path = MyPhotoExt;
-			sourceTree = "<group>";
-		};
 		CBECD0C91FB973A400277347 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,7 +336,7 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		CBECD0CA1FB973C200277347 /* trash */ = {
+		CBECD0CA1FB973C200277347 /* contacts */ = {
 			isa = PBXGroup;
 			children = (
 				CB1A8A2F1F54E6010087F29F /* ContractorTableViewCell.swift */,
@@ -382,31 +345,12 @@
 				CB52518C1FAFE6E400C49709 /* WelcomeViewController.swift */,
 				CB97BAF91FB91FF9004E1232 /* ImageWriterViewController.swift */,
 			);
-			path = trash;
+			path = contacts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CB1A8A371F54F5F30087F29F /* OneSignalNotificationServiceExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CB1A8A421F54F5F30087F29F /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */;
-			buildPhases = (
-				AEF92B383261795F20AB0D6B /* [CP] Check Pods Manifest.lock */,
-				CB1A8A341F54F5F30087F29F /* Sources */,
-				CB1A8A351F54F5F30087F29F /* Frameworks */,
-				CB1A8A361F54F5F30087F29F /* Resources */,
-				902F17235BF95EE41B330E6C /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = OneSignalNotificationServiceExtension;
-			productName = OneSignalNotificationServiceExtension;
-			productReference = CB1A8A381F54F5F30087F29F /* OneSignalNotificationServiceExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		CB22FA341F52428800973823 /* buildingTrades */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CB22FA601F52428800973823 /* Build configuration list for PBXNativeTarget "buildingTrades" */;
@@ -414,15 +358,14 @@
 				037902E42A3A7C3B98459AB3 /* [CP] Check Pods Manifest.lock */,
 				CB22FA311F52428800973823 /* Sources */,
 				CB22FA321F52428800973823 /* Frameworks */,
-				CB22FA331F52428800973823 /* Resources */,
 				E5FC537FB0F2CFAE4B510BCC /* [CP] Embed Pods Frameworks */,
 				C840FEBC06C6A418DBD8ECF8 /* [CP] Copy Pods Resources */,
 				CB1A8A431F54F5F30087F29F /* Embed App Extensions */,
+				CB22FA331F52428800973823 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				CB1A8A3E1F54F5F30087F29F /* PBXTargetDependency */,
 			);
 			name = buildingTrades;
 			productName = buildingTrades;
@@ -481,11 +424,6 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Allison Mcentire";
 				TargetAttributes = {
-					CB1A8A371F54F5F30087F29F = {
-						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = V243T33UAS;
-						ProvisioningStyle = Automatic;
-					};
 					CB22FA341F52428800973823 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = V243T33UAS;
@@ -529,26 +467,20 @@
 				CB22FA341F52428800973823 /* buildingTrades */,
 				CB22FA4B1F52428800973823 /* buildingTradesTests */,
 				CB22FA561F52428800973823 /* buildingTradesUITests */,
-				CB1A8A371F54F5F30087F29F /* OneSignalNotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		CB1A8A361F54F5F30087F29F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CB22FA331F52428800973823 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB819D361FBA702E00A94471 /* ios_license.dms in Resources */,
 				CB22FA461F52428800973823 /* LaunchScreen.storyboard in Resources */,
 				CB5251891FAFD94800C49709 /* GoogleService-Info.plist in Resources */,
 				CB22FA431F52428800973823 /* Assets.xcassets in Resources */,
+				CB54C56E1FB9FC5A00CE108F /* Info.plist in Resources */,
 				CBA6F0521F53C7E40049F821 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -588,21 +520,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		902F17235BF95EE41B330E6C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-buildingTrades-OneSignalNotificationServiceExtension/Pods-buildingTrades-OneSignalNotificationServiceExtension-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		92BCB8DF0CD258996D6D46CB /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -616,24 +533,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-buildingTradesUITests/Pods-buildingTradesUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AEF92B383261795F20AB0D6B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-buildingTrades-OneSignalNotificationServiceExtension-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B8F66BCA30646C53A18AF04A /* [CP] Embed Pods Frameworks */ = {
@@ -727,6 +626,8 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/JSONHelper/JSONHelper.framework",
 				"${BUILT_PRODUCTS_DIR}/PDFReader/PDFReader.framework",
+				"${PODS_ROOT}/PhotoEditorSDK/pesdk-ios-build-8.1.3/PhotoEditorSDK.framework",
+				"${PODS_ROOT}/PhotoEditorSDK/pesdk-ios-build-8.1.3/PhotoEditorSDK.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -742,6 +643,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSONHelper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDFReader.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhotoEditorSDK.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/PhotoEditorSDK.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -775,14 +678,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		CB1A8A341F54F5F30087F29F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CB1A8A3B1F54F5F30087F29F /* NotificationService.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CB22FA311F52428800973823 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -799,6 +694,7 @@
 				CBAA74C31F532BEF005D9C8C /* NodeLocations.swift in Sources */,
 				CBAA74CA1F53AF15005D9C8C /* SiteDetailViewController.swift in Sources */,
 				CB4BE5BF1FB9C95A008CDD8C /* Media.swift in Sources */,
+				CB4BE5C41FB9D497008CDD8C /* EventsDetailViewController.swift in Sources */,
 				CB36B8A61F5250C700E0C706 /* Website.swift in Sources */,
 				CB22FA391F52428800973823 /* AppDelegate.swift in Sources */,
 				CB2098DB1FAFF5EC0067F8FA /* MenuTableViewCell.swift in Sources */,
@@ -809,11 +705,12 @@
 				CBECD0C81FB96E8100277347 /* PDFReadViewController.swift in Sources */,
 				CB1A8A451F54F63B0087F29F /* NotificationFile.swift in Sources */,
 				CB1A8A301F54E6010087F29F /* ContractorTableViewCell.swift in Sources */,
-				CB97BAF81FB91496004E1232 /* PhotoEditingViewController.swift in Sources */,
 				CB1A8A321F54EC610087F29F /* AddContactsViewController.swift in Sources */,
 				CB2098D91FAFF4BF0067F8FA /* MenuTooViewController.swift in Sources */,
+				CB819D381FBA713600A94471 /* ViewController.swift in Sources */,
 				CB36B8A01F5249EE00E0C706 /* SignUpViewController.swift in Sources */,
 				CBAA74CC1F53B1C1005D9C8C /* CommentPostViewController.swift in Sources */,
+				CB4BE5C11FB9D45D008CDD8C /* EventsViewController.swift in Sources */,
 				CB22FA411F52428800973823 /* buildingTrades.xcdatamodeld in Sources */,
 				CB36B8A81F52510600E0C706 /* Comments.swift in Sources */,
 				CBECD0C61FB96A0300277347 /* ResourcesViewController.swift in Sources */,
@@ -842,11 +739,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		CB1A8A3E1F54F5F30087F29F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CB1A8A371F54F5F30087F29F /* OneSignalNotificationServiceExtension */;
-			targetProxy = CB1A8A3D1F54F5F30087F29F /* PBXContainerItemProxy */;
-		};
 		CB22FA4E1F52428800973823 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CB22FA341F52428800973823 /* buildingTrades */;
@@ -868,14 +760,6 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		CB97BAEE1FB91382004E1232 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CB97BAEF1FB91382004E1232 /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 		CBA6F0501F53C7E40049F821 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -884,45 +768,9 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		CBBAA21A1FB90ADE003B7851 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CBBAA21B1FB90ADE003B7851 /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		CB1A8A401F54F5F30087F29F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A8CEEA945CF7D8E5142B9BD /* Pods-buildingTrades-OneSignalNotificationServiceExtension.debug.xcconfig */;
-			buildSettings = {
-				DEVELOPMENT_TEAM = V243T33UAS;
-				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = millionacrenest.BTrades.OneSignalNotificationServiceExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		CB1A8A411F54F5F30087F29F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D9206D6F00642099AD9B3433 /* Pods-buildingTrades-OneSignalNotificationServiceExtension.release.xcconfig */;
-			buildSettings = {
-				DEVELOPMENT_TEAM = V243T33UAS;
-				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = millionacrenest.BTrades.OneSignalNotificationServiceExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
 		CB22FA5E1F52428800973823 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1022,16 +870,19 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0DDB50442C3F1F756711C482 /* Pods-buildingTrades.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = buildingTrades/buildingTrades.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = V243T33UAS;
 				INFOPLIST_FILE = buildingTrades/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = millionacrenest.BTrades;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -1039,16 +890,19 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 97E113C140C99DB3A4CFABC5 /* Pods-buildingTrades.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = buildingTrades/buildingTrades.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = V243T33UAS;
 				INFOPLIST_FILE = buildingTrades/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = millionacrenest.BTrades;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -1117,15 +971,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CB1A8A421F54F5F30087F29F /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CB1A8A401F54F5F30087F29F /* Debug */,
-				CB1A8A411F54F5F30087F29F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		CB22FA301F52428800973823 /* Build configuration list for PBXProject "buildingTrades" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
