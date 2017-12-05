@@ -76,6 +76,8 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        
        
         let query = locationsRef.child(localtag!)
         query.queryOrdered(byChild:"localtag").queryEqual(toValue: localtag!).observe(.value, with: { snapshot in
@@ -84,10 +86,10 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
             for item in snapshot.children {
                 guard let locationData = item as? DataSnapshot else { continue }
                 let locationValue = locationData.value as! [String: Any]
-                let name = locationValue["title"] as! String
+                let name = locationValue["name"] as! String
                 let tags = locationValue["localtag"] as! String
-                let latitude = locationValue["LocationLatitude"] as! CLLocationDegrees
-                let longitude = locationValue["LocationLongitude"] as! CLLocationDegrees
+                let latitude = locationValue["latitude"] as! CLLocationDegrees
+                let longitude = locationValue["longitude"] as! CLLocationDegrees
                 let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                 let key = locationData.key
                 

@@ -40,7 +40,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     
     let locationManager =  CLLocationManager()
     let newPin = MKPointAnnotation()
-    var locationImageUrl: URL?
+    var locationImageUrl: String?
     var longitude: Double = 0
     var latitude: Double = 0
     var ref = Database.database().reference()
@@ -53,6 +53,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     var filename: String?
     var image: UIImage?
     var data: Data?
+    let myGroup = DispatchGroup()
     
 
     let refUser = Database.database().reference().child("users")
@@ -62,7 +63,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     
     
     var items: [NodeLocation] = []
-    var pickerData = ["SeattleBT", "opcmia528", "Painters", "test", "Item 5", "Item 6"]
+    var pickerData = ["SeattleBT", "Asbestos Workers Local 7", "Boilermakers Local 502", "BAC Pacific Northwest ADC", "Carpet, Lino. & Soft Tile Layers Local 1238", "Cement Masons and Plasterers Local 528", "Electrical Workers Local 46", "Elevator Constructors Local 19", "Glaziers Local 188", "Iron Workers Local 86", "Laborers Local 242", "Laborers Local 440", "IUPAT Local 300", "IUPAT Local 1964", "Plumbers & Pipefitters Local 32", "Roofers Local 54", "Sheet Metal Workers Local 66", "Sign Painters Local 1094", "Sprinkler Fitters Local 699", "Teamsters Local 174", "Laborers District Council", "IUPAT District Council 5", "Operating Engineers Local 302"]
     
     
    
@@ -76,8 +77,8 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         super.viewDidLoad()
         getUsers()
  
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-        
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+//
   
         tableView.delegate = self
         tableView.dataSource = self
@@ -105,30 +106,30 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     }
     
 
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc func keyboardNotification(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
-            let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-            let duration:TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
-            let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
-            let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
-            let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
-            if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
-                self.keyboardHeightLayoutConstraint?.constant = 0.0
-            } else {
-                self.keyboardHeightLayoutConstraint?.constant = endFrame?.size.height ?? 0.0
-            }
-            UIView.animate(withDuration: duration,
-                           delay: TimeInterval(0),
-                           options: animationCurve,
-                           animations: { self.view.layoutIfNeeded() },
-                           completion: nil)
-        }
-    }
+//    
+//    deinit {
+//        NotificationCenter.default.removeObserver(self)
+//    }
+//    
+//    @objc func keyboardNotification(notification: NSNotification) {
+//        if let userInfo = notification.userInfo {
+//            let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+//            let duration:TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+//            let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
+//            let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
+//            let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+//            if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
+//                self.keyboardHeightLayoutConstraint?.constant = 0.0
+//            } else {
+//                self.keyboardHeightLayoutConstraint?.constant = endFrame?.size.height ?? 0.0
+//            }
+//            UIView.animate(withDuration: duration,
+//                           delay: TimeInterval(0),
+//                           options: animationCurve,
+//                           animations: { self.view.layoutIfNeeded() },
+//                           completion: nil)
+//        }
+//    }
 
     
     func getUsers() {
@@ -234,7 +235,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return pickerData.count
     }
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -250,6 +251,11 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tagHere = pickerData[indexPath.row]
         
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
     
 //    func drawOnImage(startingImage: UIImage) -> UIImage {
@@ -285,19 +291,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
 //        return myImageView!
 //    }
 //
-    func getLocationUrl() {
-        let photoRef = storage.reference().child("images/\(filename!)")
-        print("photo ref: \(photoRef)")
-        
-        // Fetch the download URL
-        photoRef.downloadURL { url, error in
-       
-                self.locationImageUrl = url
-                
-            
-        }
-        
-    }
+
 
     
     
@@ -311,11 +305,11 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
                 var refNodeLocationsShared = Database.database().reference().child("nodeLocations/\(self.tagHere!)")
             
             //creating artist with the given values
-                let nodeLocation = ["title": self.locationName.text! as String,
+                let nodeLocation = ["name": self.locationName.text! as String,
                                     "localtag": self.localtag,
                                     "sharedWith": self.tagHere,
-                                    "LocationLatitude": self.latitude as Double,
-                                    "LocationLongitude": self.longitude as Double,
+                                    "latitude": self.latitude as Double,
+                                    "longitude": self.longitude as Double,
                                     "image": self.locationImageUrl as! String,
                                     "UID": "\(self.userID)"] as [String : Any]
             
@@ -326,11 +320,11 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
                 self.refNodeLocations.child(key).setValue(nodeLocation)
         } else {
             //creating artist with the given values
-                let nodeLocation = ["title": self.locationName.text! as String,
+                let nodeLocation = ["name": self.locationName.text! as String,
                                     "localtag": self.localtag,
                                 "sharedWith": "SBT",
-                                "LocationLatitude": self.latitude as Double,
-                                "LocationLongitude": self.longitude as Double,
+                                "latitude": self.latitude as Double,
+                                "longitude": self.longitude as Double,
                                 "image": self.locationImageUrl as! String,
                                 "UID": "\(self.userID)"] as [String : Any]
             
@@ -390,16 +384,22 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     
     @IBAction func addLocationTapped(_ sender: Any) {
         locationManager.stopUpdatingLocation()
-            getLocationUrl()
-        let when = DispatchTime.now() + 60 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            // Your code with delay
-             self.saveData()
+        
+        
+        if locationImageUrl != nil {
+            self.saveData()
+        } else {
+                //Alert to tell the user that there was an error because they didn't fill anything in the textfields because they didn't fill anything in
+            
+                let alertController = UIAlertController(title: "Error", message: "Your image is did not load. Please try again.", preferredStyle: .alert)
+            
+                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertController.addAction(defaultAction)
+            
+                self.present(alertController, animated: true, completion: nil)
+            
+            
         }
-        
-            // Your code with delay
-        
-        
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "Map")
         self.present(vc!, animated: true, completion: nil)
@@ -411,26 +411,36 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
 
 extension AddPinViewController: PhotoEditViewControllerDelegate {
     func photoEditViewController(_ photoEditViewController: PhotoEditViewController, didSave image: UIImage, and data: Data) {
-
+        
         //  Get a reference to the location where we'll store our photos
-        let photosRef = storage.reference().child("images")
-        
-        // Get a reference to store the file at chat_photos/<FILENAME>
-        self.filename = ("\(arc4random())")
-        print("filename: \(filename!)")
-        let photoRef = photosRef.child("\(filename!).png")
-        
-        // Upload file to Firebase Storage
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/png"
-        let imageData = UIImageJPEGRepresentation(image, 0.3)!
-        
-        photoRef.putData(imageData, metadata: metadata).observe(.success) {
-            (snapshot) in }
-         self.dismiss(animated: true, completion: nil)
-       
-        
-        
+            let photosRef = self.storage.reference().child("images")
+            
+            // Get a reference to store the file at chat_photos/<FILENAME>
+            let filename = ("\(arc4random())")
+            
+            let photoRef = photosRef.child("\(filename).png")
+            
+            // Upload file to Firebase Storage
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/png"
+            let smallImageData = image.resized(withPercentage: 0.1)
+            
+            let imageData = UIImageJPEGRepresentation(smallImageData!, 0.1)!
+            
+            
+            photoRef.putData(imageData, metadata: metadata).observe(.success) { (snapshot) in
+                
+                
+                let text = snapshot.metadata?.downloadURL()?.absoluteString
+                // Set the download URL to the message box, so that the user can send it to the database
+                self.locationImageUrl = text!
+               
+                
+            }
+        let when = DispatchTime.now() + 5 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.dismiss(animated: true, completion: nil)
+        }
         
     }
         
@@ -445,3 +455,19 @@ extension AddPinViewController: PhotoEditViewControllerDelegate {
     }
 }
 
+extension UIImage {
+    func resized(withPercentage percentage: CGFloat) -> UIImage? {
+        let canvasSize = CGSize(width: size.width * percentage, height: size.height * percentage)
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(origin: .zero, size: canvasSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    func resized(toWidth width: CGFloat) -> UIImage? {
+        let canvasSize = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(origin: .zero, size: canvasSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+}

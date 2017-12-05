@@ -16,9 +16,9 @@ import FirebaseDatabase
 
 struct NodeLocation {
     
-    let key: String
-    let name: String
-    let addedByUser: String
+    let key: String?
+    let name: String?
+    let addedByUser: String?
     let ref: DatabaseReference?
     let location: String?
     let latitude: String?
@@ -50,8 +50,8 @@ struct NodeLocation {
     init?(snapshot: DataSnapshot) {
         key = snapshot.key
         let snapshotValue = snapshot.value as? [String: AnyObject]
-        name = (snapshotValue?["name"] as? String)!
-        addedByUser = (snapshotValue?["addedByUser"] as? String)!
+        name = snapshotValue?["name"] as? String
+        addedByUser = snapshotValue?["addedByUser"] as? String
         location = snapshotValue?["Location"] as? String
         latitude = snapshotValue?["LocationLatitude"] as? String
         longitude = snapshotValue?["LocationLongitude"] as? String

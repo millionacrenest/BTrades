@@ -14,12 +14,13 @@ target 'buildingTrades' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
-  pod 'PDFReader'
+  pod 'PDFReader', '~> 2.4.0'
   pod 'SDWebImage', '~> 4.0'
   pod 'TTTAttributedLabel'
   pod 'Firebase/Storage'
   pod 'YouTubePlayer'  
   pod 'PhotoEditorSDK'
+  pod 'iOSPhotoEditor'
 
   target 'buildingTradesTests' do
     inherit! :search_paths

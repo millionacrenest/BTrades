@@ -93,7 +93,7 @@ class ResourcesViewController: UIViewController, UITableViewDataSource, UITableV
         var groceryItem = items[indexPath.row]
         
         
-        let rawURL = "https://seattlebt.info\(groceryItem.field_document_file)"
+        let rawURL = "\(groceryItem.field_document_file)"
         
         cell.textLabel?.text = groceryItem.name
         cell.detailTextLabel?.text = groceryItem.field_document_file

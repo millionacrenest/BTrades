@@ -24,8 +24,11 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var trailingC: NSLayoutConstraint!
     var menu_vc: MenuTooViewController!
+    let userID = Auth.auth().currentUser!.uid
+    var localtag = "SBT"
+    let refUser = Database.database().reference().child("users")
     
-    let frontpageRef = Database.database().reference(withPath: "frontpage")
+    
     
     var items: [Website] = []
     var menuIsVisible = false
@@ -38,6 +41,8 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getUsers()
+        let frontpageRef = Database.database().reference(withPath: "frontpage")
         menu_vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuToo") as! MenuTooViewController
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToGesture))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
@@ -74,12 +79,12 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: - Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+       
         return items.count
     }
     
@@ -89,7 +94,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         let groceryItem = items[indexPath.row]
-        let imageString = "https://seattlebt.info\(groceryItem.field_media_single!)"
+        let imageString = "\(groceryItem.field_image!)"
         
         
         
@@ -103,17 +108,17 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.captionLabel.text = groceryItem.title
       
         cell.picture.sd_setImage(with: URL(string: imageString), placeholderImage: UIImage(named: "tools.png"))
-        cell.textBodyView.text = "February 24, 2017 picnic"
+        cell.textBodyView.text = groceryItem.body
         
         return cell
         
         
         
     }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
-        return 300.0;//Choose your custom row height
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+//    {
+//        return 300.0;//Choose your custom row height
+//    }
     
     @IBAction func menuTapped(_ sender: Any) {
         
@@ -135,6 +140,32 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
     }
+    
+    func getUsers() {
+         if userID != nil {
+        let query = refUser.queryOrdered(byChild: "field_uid").queryEqual(toValue: userID)
+        query.observe(.value, with: { snapshot in
+            // 2
+            
+            
+            for item in snapshot.children {
+                // 4
+                let groceryItem = Staff(snapshot: item as! DataSnapshot)
+                
+                
+                self.localtag = (groceryItem?.nothing)!
+               
+                
+            }
+            
+        })
+         } else {
+        self.localtag = "SBT"
+    }
+    }
+    
+
+    
     
     func respondToGesture(gesture: UISwipeGestureRecognizer)
     {

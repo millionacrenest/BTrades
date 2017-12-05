@@ -14,7 +14,7 @@ class FacebookViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let url = NSURL (string: "https://www.facebook.com/groups/224243724298394");
+        let url = NSURL (string: "https://www.facebook.com/pages/Seattle-Building-Trades-Council/222734194579413");
         let request = NSURLRequest(url: url! as URL);
         webView.loadRequest(request as URLRequest);
     }
