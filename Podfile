@@ -9,7 +9,6 @@ target 'buildingTrades' do
   pod 'Firebase/Messaging'
   pod 'FirebaseInstanceID'
   pod 'SwiftyJSON'
-  pod 'AlamofireImage', '~> 3.1'
   pod 'JSONHelper'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
@@ -21,6 +20,7 @@ target 'buildingTrades' do
   pod 'YouTubePlayer'  
   pod 'PhotoEditorSDK'
   pod 'iOSPhotoEditor'
+  pod 'Alamofire'
 
   target 'buildingTradesTests' do
     inherit! :search_paths

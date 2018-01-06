@@ -45,12 +45,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="129968" translatesAutoresizingMaskIntoConstraints="NO" id="s7s-zH-fgx">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="iTunesArtwork" translatesAutoresizingMaskIntoConstraints="NO" id="ZsE-0n-LEX">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="366"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qb4-B5-BB0">
                                 <rect key="frame" x="16" y="567" width="343" height="30"/>
-                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.84705882352941175" green="0.12549019607843137" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="dxe-zs-L06"/>
                                     <constraint firstAttribute="width" constant="343" id="qzo-zV-rUQ"/>
@@ -62,15 +63,6 @@
                                     <action selector="loginButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lm7-bZ-kyg"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WELCOME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q9k-M8-94l">
-                                <rect key="frame" x="26" y="41" width="333" height="78"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="78" id="NO7-cK-m6r"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="65"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rc5-lh-weN">
                                 <rect key="frame" x="16" y="463" width="343" height="30"/>
                                 <constraints>
@@ -94,16 +86,9 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="s7s-zH-fgx" secondAttribute="trailing" id="8Eb-5d-MHx"/>
-                            <constraint firstItem="s7s-zH-fgx" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="8KZ-Sf-351"/>
-                            <constraint firstItem="Q9k-M8-94l" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Apl-of-jSo"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Qb4-B5-BB0" secondAttribute="bottom" constant="70" id="CnS-TV-pxh"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="s7s-zH-fgx" secondAttribute="bottom" id="FHV-X4-q6y"/>
-                            <constraint firstItem="s7s-zH-fgx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Frv-lW-8tT"/>
-                            <constraint firstItem="Q9k-M8-94l" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="21" id="Oy7-Gc-ddo"/>
                             <constraint firstItem="Rc5-lh-weN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Ybn-h5-Vrh"/>
                             <constraint firstItem="Qb4-B5-BB0" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="b9E-VF-ORu"/>
-                            <constraint firstItem="Q9k-M8-94l" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="cB0-YA-LHF"/>
                             <constraint firstItem="Hk8-sg-lGt" firstAttribute="top" secondItem="Rc5-lh-weN" secondAttribute="bottom" constant="19" id="dfH-8U-BQR"/>
                             <constraint firstItem="Qb4-B5-BB0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="etq-DB-seB"/>
                             <constraint firstItem="Qb4-B5-BB0" firstAttribute="top" secondItem="Hk8-sg-lGt" secondAttribute="bottom" constant="25" id="lWA-AE-r9K"/>
@@ -643,6 +628,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="locationName" destination="1w7-fb-HrE" id="HcG-qh-Huq"/>
+                        <outlet property="locationNotes" destination="djV-mC-zqH" id="XGW-zD-tNZ"/>
                         <outlet property="tableView" destination="fGY-sX-1ef" id="ALw-n4-8l7"/>
                     </connections>
                 </viewController>
@@ -887,6 +873,13 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMx-c1-LoO">
+                                <rect key="frame" x="16" y="366" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -900,6 +893,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="locationNameTextField" destination="gsz-qH-oZJ" id="K7Q-Og-jJe"/>
+                        <outlet property="locationNotes" destination="PMx-c1-LoO" id="9rW-NO-ens"/>
                         <outlet property="locationTags" destination="n8z-lL-ni2" id="lue-l5-g6U"/>
                         <outlet property="siteImage" destination="JCj-W8-WrR" id="GN9-gp-SwA"/>
                         <outlet property="tableView" destination="PqU-Kd-eLJ" id="a4B-QG-mko"/>
@@ -1360,7 +1354,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="129968" width="379" height="437"/>
+        <image name="iTunesArtwork" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="A4O-a2-8QA"/>

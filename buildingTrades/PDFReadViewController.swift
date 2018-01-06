@@ -15,7 +15,8 @@ class PDFReadViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = URL(string: "https://seattlebt.info\(passedValue!)")
+        let url = URL(string: "\(passedValue!)")
+       // let url : NSString = passedValue! as NSString
  
         webView.loadRequest(URLRequest(url: url!))
 

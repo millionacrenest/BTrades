@@ -26,7 +26,8 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     
     
     
-  
+    @IBOutlet weak var locationNotes: UITextField!
+    
     
     
     @IBOutlet weak var coordinatesLabel: UILabel!
@@ -307,6 +308,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
             //creating artist with the given values
                 let nodeLocation = ["name": self.locationName.text! as String,
                                     "localtag": self.localtag,
+                                    "locationNotes": self.locationNotes.text!,
                                     "sharedWith": self.tagHere,
                                     "latitude": self.latitude as Double,
                                     "longitude": self.longitude as Double,
@@ -321,8 +323,9 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         } else {
             //creating artist with the given values
                 let nodeLocation = ["name": self.locationName.text! as String,
+                                      "locationNotes": self.locationNotes.text!,
                                     "localtag": self.localtag,
-                                "sharedWith": "SBT",
+                                "sharedWith": "SeattleBT",
                                 "latitude": self.latitude as Double,
                                 "longitude": self.longitude as Double,
                                 "image": self.locationImageUrl as! String,

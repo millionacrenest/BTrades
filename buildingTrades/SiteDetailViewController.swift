@@ -28,6 +28,7 @@ class SiteDetailViewController: UIViewController, MKMapViewDelegate, UITextField
     
     
   
+    @IBOutlet weak var locationNotes: UILabel!
     
     
     
@@ -83,16 +84,17 @@ class SiteDetailViewController: UIViewController, MKMapViewDelegate, UITextField
                 guard let nodeSnap = snap as? DataSnapshot else { continue }
                 let id = nodeSnap.key
                 guard let nodeDict = nodeSnap.value as? [String:AnyObject]  else { continue }
-                let name = nodeDict["title"] as? String
+                let name = nodeDict["name"] as? String
                 
                 
                 let tags = nodeDict["localtag"] as? String
                 let imageString = nodeDict["image"] as? String
+                let locNotes = nodeDict["locationNotes"] as? String
                 
                 self.locationNameTextField.text = name
                 
                 self.locationTags.text = tags
-                
+                self.locationNotes.text = locNotes
                 if let url = NSURL(string: imageString!) {
                     if let data = NSData(contentsOf: url as URL) {
                         self.siteImage?.image = UIImage(data: data as Data)
