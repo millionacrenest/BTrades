@@ -179,7 +179,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     
     
-    func respondToGesture(gesture: UISwipeGestureRecognizer)
+    @objc func respondToGesture(gesture: UISwipeGestureRecognizer)
     {
         switch gesture.direction {
         case UISwipeGestureRecognizerDirection.right:

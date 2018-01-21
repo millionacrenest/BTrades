@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     
     
-    func tokenRefreshNotification(_ notification: Notification) {
+    @objc func tokenRefreshNotification(_ notification: Notification) {
         
         
         if let refreshedToken = InstanceID.instanceID().token() {
