@@ -28,11 +28,15 @@ struct Staff {
     let uid: String?
     let permission: Bool?
     let nothing: String?
+    let localtag: String?
     let name: String?
+    let facebook: String?
+    let website: String?
+    let tagLabel: String?
     
     
     
-    init(name: String, field_uid: String, field_full_name: String, field_local_32_member_since: String, field_on_staff_since: String, field_profile_picture: String, field_tags: String, field_type: String, uid: String, permission: Bool, field_email: String, key: String = "", nothing: String) {
+    init(name: String, field_uid: String, field_full_name: String, field_local_32_member_since: String, field_on_staff_since: String, field_profile_picture: String, field_tags: String, field_type: String, uid: String, facebook: String, permission: Bool, field_email: String, key: String = "", nothing: String, localtag: String, website: String, tagLabel: String) {
         self.key = key
         self.name = name
         self.field_full_name = field_full_name
@@ -47,6 +51,10 @@ struct Staff {
         self.ref = nil
         self.permission = permission
         self.nothing = nothing
+        self.localtag = localtag
+        self.facebook = facebook
+        self.website = website
+        self.tagLabel = tagLabel
     }
     
     init?(snapshot: DataSnapshot) {
@@ -63,7 +71,11 @@ struct Staff {
         field_uid = snapshotValue?["field_uid"] as? String
         uid = snapshotValue?["uid"] as? String
         nothing = snapshotValue?["nothing"] as? String
+        localtag = snapshotValue?["localtag"] as? String
         permission = snapshotValue?["permission"] as? Bool
+        facebook = snapshotValue?["facebook"] as? String
+        website = snapshotValue?["website"] as? String
+        tagLabel = snapshotValue?["tagLabel"] as? String
         ref = snapshot.ref
     }
     
@@ -81,6 +93,10 @@ struct Staff {
             "uid": uid,
             "permission": permission,
             "nothing": nothing,
+            "localtag": localtag,
+            "facebook": facebook,
+            "website": website,
+            "tagLabel": tagLabel
             
         ]
     }

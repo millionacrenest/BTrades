@@ -19,6 +19,7 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var textBodyView: UITextView!
     
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

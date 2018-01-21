@@ -10,51 +10,69 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class UserAccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class UserAccountViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    let ref = Database.database().reference()
-    let userID = Auth.auth().currentUser?.uid
+    @IBOutlet weak var localtTagView: UILabel!
+   
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    
+    @IBOutlet weak var websiteLabel: UILabel!
+    
     var childIWantToRemove: String!
     
-    var sites: [NodeLocation] = []
-    let locationsRef = Database.database().reference().child("nodeLocations")
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchSites()
-        tableView.delegate = self
-        tableView.dataSource = self
+        localtTagView.text = UserDefaults.standard.string(forKey: "tagLabel")
+        nameLabel.text = UserDefaults.standard.string(forKey: "name")
+        websiteLabel.text = UserDefaults.standard.string(forKey: "website")
+      
+        //fetchSites()
         
-       
+        var test = UserDefaults.standard.string(forKey: "userID")
+        print("test \(test)")
         
-        tableView.reloadData()
+      
+        
+        
+       //localtTagView.text = tag
+        
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//
+//
+//
+//        tableView.reloadData()
 
         // Do any additional setup after loading the view.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sites.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath as IndexPath) as! UITableViewCell
-        
-        let item = sites[indexPath.row]
-        cell.textLabel?.text = item.name
-        cell.detailTextLabel?.text = item.key
-        self.childIWantToRemove = item.key
-        
-        
-        
-        return cell
-    }
-    
+//    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//        return 1
+//    }
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        //return users.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath as IndexPath) as! UITableViewCell
+//
+//        let item = users[indexPath.row]
+//        cell.textLabel?.text = item.name
+//        cell.detailTextLabel?.text = item.key
+//        self.childIWantToRemove = item.key
+//
+//
+//
+//        return cell
+//    }
+//
 //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 //        if editingStyle == .delete {
 //            print("Deleted")
@@ -73,24 +91,7 @@ class UserAccountViewController: UIViewController, UITableViewDelegate, UITableV
 //            }
 //        }
 //    }
-    
-    func fetchSites() {
-        
-        locationsRef.queryOrdered(byChild: "UID").queryEqual(toValue: userID!).observe(.value, with: { snapshot in
-            
-            var frontpages: [NodeLocation] = []
-            
-            for item in snapshot.children {
-                let groceryItem = NodeLocation(snapshot: item as! DataSnapshot)
-                frontpages.append(groceryItem!)
-                
-            }
-            self.sites = frontpages
-            self.tableView.reloadData()
-        })
-        
-        
-    }
+   
     
 
     @IBAction func userAccountButtonTapped(_ sender: Any) {
@@ -113,14 +114,6 @@ class UserAccountViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+  
 
 }

@@ -29,11 +29,12 @@ struct Website {
     let field_telephone_link: String?
     let field_web_address: String?
     let field_webform: String?
+    let field_facebook: String?
     
     var comments: [Comments]!
     
     
-    init(field_media_single: String, title: String, field_webform: String, field_web_address: String, field_telephone_link: String, field_date_of_event: String, field_tag: String, field_document_file: String, term_node_tid: String, body: String, field_image: String, key: String = "", name: String, comments: [Comments]) {
+    init(field_media_single: String, title: String, field_webform: String, field_web_address: String, field_telephone_link: String, field_date_of_event: String, field_tag: String, field_document_file: String, term_node_tid: String, body: String, field_facebook: String, field_image: String, key: String = "", name: String, comments: [Comments]) {
         self.key = key
         self.title = title
         self.body = body
@@ -49,6 +50,7 @@ struct Website {
         self.field_tag = field_tag
         self.comments = comments
         self.field_media_single = field_media_single
+        self.field_facebook = field_facebook
         
         
     }
@@ -71,6 +73,7 @@ struct Website {
         field_date_of_event = snapshotValue?["field_date_of_event"] as? String
         field_tag = snapshotValue?["field_tag"] as? String
         field_media_single = snapshotValue?["field_media_single"] as? String
+        field_facebook = snapshotValue?["field_facebook"] as? String
         comments = (snapshotValue?["comments"] as? [DataSnapshot])?.map({ Comments(snapshot: $0) })
         
         
@@ -94,6 +97,7 @@ struct Website {
             "field_web_address": field_web_address,
             "field_webform": field_webform,
             "field_media_single": field_media_single,
+            "field_facebook": field_facebook,
             "comments": comments
             
         ]

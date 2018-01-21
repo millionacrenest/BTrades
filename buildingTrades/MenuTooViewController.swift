@@ -10,7 +10,7 @@ import UIKit
 
 class MenuTooViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let links_arr = ["Map", "Videos", "Resources", "Contacts", "Events", "User Account", "Facebook", "Website"]
+    let links_arr = ["Job Sites", "Videos", "Resources", "Contacts", "Events", "User Account", "Facebook", "Website"]
     
     
     @IBOutlet weak var tableView: UITableView!

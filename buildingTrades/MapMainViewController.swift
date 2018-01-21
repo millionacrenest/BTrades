@@ -27,14 +27,18 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     let regionRadius: CLLocationDistance = 1000
     var varToPass: String!
     var localtag: String?
-    let userID = Auth.auth().currentUser!.uid
+  //  let userID = Auth.auth().currentUser!.uid
 
     let locationsRef = Database.database().reference(withPath: "nodeLocations")
-    let refUser = Database.database().reference().child("users")
+  //  let refUser = Database.database().reference().child("ids")
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        getUsers()
+       // getUsers()
+        localtag = UserDefaults.standard.string(forKey: "localtag")
+        print("the localtag is \(localtag)")
+        
+        
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -57,37 +61,45 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     }
     
     
-    func getUsers() {
-        let query = refUser.queryOrdered(byChild: "field_uid").queryEqual(toValue: userID)
-        query.observe(.value, with: { snapshot in
-            // 2
-            var frontpages: [Staff] = []
-            
-            for item in snapshot.children {
-                // 4
-                let groceryItem = Staff(snapshot: item as! DataSnapshot)
-
-                self.localtag = groceryItem?.nothing
-                print("Localtag on: \(self.localtag!)")
-                
-            }
-            
-        })
-    }
+//    func getUsers() {
+//
+//        refUser.child("ids").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user value
+//            let value = snapshot.value as? NSDictionary
+//            self.localtag = value?["localtag"] as? String ?? ""
+//
+//
+//            // ...
+//        }) { (error) in
+//            print(error.localizedDescription)
+//        }
+////        let query = refUser.child(userID)
+////        query.observe(.value, with: { snapshot in
+////            // 2
+////            var frontpages: [Staff] = []
+////
+////            for item in snapshot.children {
+////                // 4
+////                let groceryItem = Staff(snapshot: item as! DataSnapshot)
+////
+////                self.localtag = groceryItem?.nothing
+////                print("Localtag on: \(self.localtag!)")
+////
+////            }
+////
+////        })
+//    }
     
     override func viewDidAppear(_ animated: Bool) {
         
-        
-       
-        let query = locationsRef.child(localtag!)
-        query.queryOrdered(byChild:"localtag").queryEqual(toValue: localtag!).observe(.value, with: { snapshot in
+        locationsRef.child(localtag!).observe(.value, with: { snapshot in
     
 
             for item in snapshot.children {
                 guard let locationData = item as? DataSnapshot else { continue }
                 let locationValue = locationData.value as! [String: Any]
-                let name = locationValue["name"] as! String
-                let tags = locationValue["localtag"] as! String
+                guard let name = locationValue["name"] as? String else { continue }
+                guard let tags = locationValue["localtag"] as? String else { continue }
                 let latitude = locationValue["latitude"] as! CLLocationDegrees
                 let longitude = locationValue["longitude"] as! CLLocationDegrees
                 let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)

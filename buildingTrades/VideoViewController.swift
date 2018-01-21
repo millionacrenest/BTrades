@@ -17,9 +17,10 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var items: [Media] = []
     
     var valueToPass:String!
+    var localtag = UserDefaults.standard.string(forKey: "localtag")
     
     
-    let videoRef = Database.database().reference(withPath: "video")
+    let videoRef = Database.database().reference(withPath: "videos")
     var selectedTask: Media?
     
     
@@ -88,7 +89,7 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     func getData() {
-        videoRef.observe(.value, with: { snapshot in
+        videoRef.child(localtag!).observe(.value, with: { snapshot in
             // 2
             var frontpages: [Media] = []
             

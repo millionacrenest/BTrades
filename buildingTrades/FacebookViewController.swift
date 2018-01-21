@@ -7,16 +7,26 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
+
 
 class FacebookViewController: UIViewController {
+    
+    
+   var facebook = UserDefaults.standard.string(forKey: "facebook")
+    
 
     @IBOutlet weak var webView: UIWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let url = NSURL (string: "https://www.facebook.com/pages/Seattle-Building-Trades-Council/222734194579413");
+       
+        
+        let url = NSURL (string: facebook!);
         let request = NSURLRequest(url: url! as URL);
-        webView.loadRequest(request as URLRequest);
+        DispatchQueue.main.async {
+            self.webView.loadRequest(request as URLRequest)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,14 +35,6 @@ class FacebookViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

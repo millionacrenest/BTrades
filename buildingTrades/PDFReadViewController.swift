@@ -11,15 +11,29 @@ import UIKit
 class PDFReadViewController: UIViewController {
     
     @IBOutlet weak var webView: UIWebView!
+    
     var passedValue: String?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = URL(string: "https://seattlebt.info\(passedValue!)")
- 
-        webView.loadRequest(URLRequest(url: url!))
-
-
+        let myGroup = DispatchGroup()
+        print("passed: \(passedValue!)")
+        myGroup.enter()
+        //// Do your task
+         let url = URL(string: self.passedValue!)
+        
+        myGroup.leave() //// When your task completes
+        myGroup.notify(queue: DispatchQueue.main) {
+            
+            ////// do your remaining work
+            self.webView.loadRequest(URLRequest(url: url!))
+        }
+        
+        
+            
+        
+        
         // Do any additional setup after loading the view.
     }
 
@@ -28,6 +42,11 @@ class PDFReadViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+
+    
+   
     
     @IBAction func shareButtonTapped(_ sender: Any) {
         // set up activity view controller

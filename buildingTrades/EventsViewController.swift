@@ -19,7 +19,7 @@ class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var valueToPass:String!
     var valueToPassThis:String!
     
-    
+    var localtag = UserDefaults.standard.string(forKey: "localtag")
     let aboutRef = Database.database().reference(withPath: "events")
     var selectedTask: Website?
     
@@ -83,7 +83,7 @@ class EventsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func getData() {
-        aboutRef.observe(.value, with: { snapshot in
+        aboutRef.child(localtag!).observe(.value, with: { snapshot in
             // 2
             var frontpages: [Website] = []
             

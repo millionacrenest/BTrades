@@ -24,12 +24,12 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var trailingC: NSLayoutConstraint!
     var menu_vc: MenuTooViewController!
-    let userID = Auth.auth().currentUser!.uid
-    var localtag = "SBT"
-    let refUser = Database.database().reference().child("users")
+    let userID =  UserDefaults.standard.string(forKey: "userID")
+    
+    let refUser = Database.database().reference().child("ids")
     
     
-    
+    var localtag = UserDefaults.standard.string(forKey: "localtag")
     var items: [Website] = []
     var menuIsVisible = false
     
@@ -41,8 +41,10 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getUsers()
-        let frontpageRef = Database.database().reference(withPath: "frontpage")
+                
+            ////// do your remaining work
+        getItems()
+        
         menu_vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuToo") as! MenuTooViewController
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToGesture))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
@@ -52,27 +54,10 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.view.addGestureRecognizer(swipeRight)
         self.view.addGestureRecognizer(swipeLeft)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 140
         tableView.tableFooterView = UIView()
-        
-        frontpageRef.observe(.value, with: { snapshot in
-            // 2
-            var frontpages: [Website] = []
-            
-            for item in snapshot.children {
-                // 4
-                let groceryItem = Website(snapshot: item as! DataSnapshot)
-                frontpages.append(groceryItem!)
-            }
-            
-            
-            // 5
-            self.items = frontpages
-            self.tableView.reloadData()
-            self.tableView.rowHeight = UITableViewAutomaticDimension
-            self.tableView.estimatedRowHeight = 150
-            
-            
-        })
+
     }
     
     
@@ -107,7 +92,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         cell.captionLabel.text = groceryItem.title
       
-        cell.picture.sd_setImage(with: URL(string: imageString), placeholderImage: UIImage(named: "tools.png"))
+        cell.picture.sd_setImage(with: URL(string: imageString), placeholderImage: UIImage(named: "129968.jpg"))
         cell.textBodyView.text = groceryItem.body
         
         return cell
@@ -141,28 +126,55 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    func getUsers() {
-         if userID != nil {
-        let query = refUser.queryOrdered(byChild: "field_uid").queryEqual(toValue: userID)
-        query.observe(.value, with: { snapshot in
+//    func getUsers() {
+//
+//        refUser.child(userID!).observe(.value, with: { snapshot in
+//            // 2
+//
+//
+//            for item in snapshot.children {
+//                // 4
+//                let groceryItem = Staff(snapshot: item as! DataSnapshot)
+//
+//
+//                var localtag = (groceryItem?.localtag)!
+//                var name = groceryItem?.name
+//                UserDefaults.standard.set(name, forKey: "name")
+//                UserDefaults.standard.set(localtag, forKey: "localtag")
+//
+//
+//            }
+//
+//        })
+//
+//    }
+    
+    func getItems() {
+        if localtag == nil {
+            localtag = "SeattleBuildingTrades"
+        }
+        let frontpageRef = Database.database().reference(withPath: "frontpage").child(localtag!)
+        frontpageRef.observe(.value, with: { snapshot in
             // 2
-            
+            var frontpages: [Website] = []
             
             for item in snapshot.children {
                 // 4
-                let groceryItem = Staff(snapshot: item as! DataSnapshot)
-                
-                
-                self.localtag = (groceryItem?.nothing)!
-               
-                
+                let groceryItem = Website(snapshot: item as! DataSnapshot)
+                frontpages.append(groceryItem!)
             }
             
+            
+            // 5
+            self.items = frontpages
+            self.tableView.reloadData()
+            self.tableView.rowHeight = UITableViewAutomaticDimension
+            self.tableView.estimatedRowHeight = 150
+            
+            
         })
-         } else {
-        self.localtag = "SBT"
     }
-    }
+    
     
 
     

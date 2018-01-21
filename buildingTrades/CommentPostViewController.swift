@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import MobileCoreServices
+import PhotoEditorSDK
 
 class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -26,6 +27,7 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
     var newMedia: Bool!
     var commentImageURL: String!
     var storage: Storage!
+    var localtag = UserDefaults.standard.string(forKey: "localtag")
     
     
     let picker = UIImagePickerController()
@@ -135,9 +137,9 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
     
 
     @IBAction func saveTapped(_ sender: Any) {
-        
+        var localtag = UserDefaults.standard.string(forKey: "localtag")
 
-        let locationsRef = ref.child("nodeLocations")
+        let locationsRef = ref.child("nodeLocations").child(localtag!)
         
         let thisLocationRef = locationsRef.child(varToReceive)
         
@@ -154,6 +156,13 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
         
         thisCommentPostRef().setValue(newComment)
         
+        let alertController = UIAlertController(title: "Success", message: "Comment has been posted.", preferredStyle: .alert)
+        
+        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertController.addAction(defaultAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
         
         
         
@@ -162,22 +171,22 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
         
     
     @IBAction func cameraButton(_ sender: Any) {
-        
-        if UIImagePickerController.isSourceTypeAvailable(
-            UIImagePickerControllerSourceType.camera) {
-            
-            let imagePicker = UIImagePickerController()
-            
-            imagePicker.delegate = self
-            imagePicker.sourceType =
-                UIImagePickerControllerSourceType.camera
-            imagePicker.mediaTypes = [kUTTypeImage as String]
-            imagePicker.allowsEditing = false
-            
-            self.present(imagePicker, animated: true,
-                         completion: nil)
-            newMedia = true
-        }
+        presentCameraViewController() 
+//        if UIImagePickerController.isSourceTypeAvailable(
+//            UIImagePickerControllerSourceType.camera) {
+//
+//            let imagePicker = UIImagePickerController()
+//
+//            imagePicker.delegate = self
+//            imagePicker.sourceType =
+//                UIImagePickerControllerSourceType.camera
+//            imagePicker.mediaTypes = [kUTTypeImage as String]
+//            imagePicker.allowsEditing = false
+//
+//            self.present(imagePicker, animated: true,
+//                         completion: nil)
+//            newMedia = true
+//        }
         
     }
     
@@ -261,6 +270,157 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
         }
     }
     
+    private func buildConfiguration() -> Configuration {
+        let configuration = Configuration() { builder in
+            // Configure camera
+            builder.configureCameraViewController() { options in
+                // Just enable Photos
+                options.allowedRecordingModes = [.photo]
+            }
+        }
+        
+        return configuration
+    }
+    
+    
+    
+    
+    private func presentCameraViewController() {
+        let configuration = buildConfiguration()
+        let cameraViewController = CameraViewController(configuration: configuration)
+        cameraViewController.dataCompletionBlock = { [unowned cameraViewController] data in
+            if let data = data {
+                let photo = Photo(data: data)
+                cameraViewController.present(self.createPhotoEditViewController(with: photo), animated: true, completion: nil)
+                
+                
+            }
+        }
+        
+        present(cameraViewController, animated: true, completion: nil)
+    }
+    
+    
+    
+    private func createPhotoEditViewController(with photo: Photo) -> PhotoEditViewController {
+        let configuration = buildConfiguration()
+        var menuItems = PhotoEditMenuItem.defaultItems
+        menuItems.removeLast() // Remove last menu item ('Magic')
+        
+        // Create a photo edit view controller
+        let photoEditViewController = PhotoEditViewController(photoAsset: photo, configuration: configuration, menuItems: menuItems)
+        photoEditViewController.delegate = self
+        
+        return photoEditViewController
+    }
+    
+    private func presentPhotoEditViewController() {
+        guard let url = Bundle.main.url(forResource: "LA", withExtension: "jpg") else {
+            return
+        }
+        
+        let photo = Photo(url: url)
+        present(createPhotoEditViewController(with: photo), animated: true, completion: nil)
+    }
+    
+    private func pushPhotoEditViewController() {
+        guard let url = Bundle.main.url(forResource: "LA", withExtension: "jpg") else {
+            return
+        }
+        
+        let photo = Photo(url: url)
+        navigationController?.pushViewController(createPhotoEditViewController(with: photo), animated: true)
+        
+    }
+    
+    private func presentCustomizedCameraViewController() {
+        let configuration = Configuration { builder in
+            // Setup global colors
+            // builder.backgroundColor = self.whiteColor
+            builder.menuBackgroundColor = UIColor.lightGray
+            
+            //  self.customizeCameraController(builder)
+            //  self.customizePhotoEditorViewController(builder)
+            // self.customizeTextTool()
+        }
+        
+        let cameraViewController = CameraViewController(configuration: configuration)
+        
+        // Set a global tint color, that gets inherited by all views
+        if let window = UIApplication.shared.delegate?.window! {
+            // window.tintColor = redColor
+        }
+        
+        cameraViewController.dataCompletionBlock = { data in
+            let photo = Photo(data: data!)
+            let photoEditViewController = PhotoEditViewController(photoAsset: photo, configuration: configuration)
+            //           photoEditViewController.view.tintColor = UIColor(red: 0.11, green: 0.44, blue: 1.00, alpha: 1.00)
+            //            photoEditViewController.toolbar.backgroundColor = UIColor.gray
+            photoEditViewController.delegate = self
+            //        //  Get a reference to the location where we'll store our photos
+            cameraViewController.present(photoEditViewController, animated: true, completion: nil)
+        }
+        
+        present(cameraViewController, animated: true, completion: nil)
+    }
+    
    
 
+    
 }
+
+extension CommentPostViewController: PhotoEditViewControllerDelegate {
+    func photoEditViewController(_ photoEditViewController: PhotoEditViewController, didSave image: UIImage, and data: Data) {
+        
+        
+        let photosRef = self.storage.reference().child("images")
+        //
+        //            // Get a reference to store the file at chat_photos/<FILENAME>
+        let filename = ("\(arc4random())")
+        //
+        let photoRef = photosRef.child("\(filename).png")
+        //
+        //            // Upload file to Firebase Storage
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/png"
+        
+        let smallImageData = UIImage(data:data,scale:1.0)
+        
+        
+        //
+        let imageData = UIImageJPEGRepresentation(smallImageData!, 0.1)!
+        //
+        //
+        photoRef.putData(imageData, metadata: metadata).observe(.success) { (snapshot) in
+            //
+            
+            let text = snapshot.metadata?.downloadURL()?.absoluteString
+            // Set the download URL to the message box, so that the user can send it to the database
+            self.commentImageURL = text!
+            
+            
+        }
+        
+        dismiss(animated: true, completion: nil)
+        
+        
+        
+    }
+    
+    
+    
+    func photoEditViewControllerDidFailToGeneratePhoto(_ photoEditViewController: PhotoEditViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func photoEditViewControllerDidCancel(_ photoEditViewController: PhotoEditViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+
+
+
+
+
+

@@ -10,11 +10,13 @@
 		0025E96E400DDE7EC25CECB5 /* Pods_buildingTrades.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8246E222DC2327FB081895B /* Pods_buildingTrades.framework */; };
 		85D63854DC249B9CAC49A031 /* Pods_buildingTradesUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 982DD0633404D855CD38B527 /* Pods_buildingTradesUITests.framework */; };
 		8D190BE8736F56B62E0052D0 /* Pods_buildingTradesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F16B40F8CFB959F576C9B042 /* Pods_buildingTradesTests.framework */; };
+		CB1951DA201502FC001B2CFA /* ios_license.dms in Resources */ = {isa = PBXBuildFile; fileRef = CB1951D9201502FC001B2CFA /* ios_license.dms */; };
 		CB1A8A2C1F54E00C0087F29F /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1A8A2B1F54E00C0087F29F /* ContactsViewController.swift */; };
 		CB1A8A2E1F54E51F0087F29F /* Contractors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1A8A2D1F54E51F0087F29F /* Contractors.swift */; };
 		CB1A8A301F54E6010087F29F /* ContractorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1A8A2F1F54E6010087F29F /* ContractorTableViewCell.swift */; };
 		CB1A8A321F54EC610087F29F /* AddContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1A8A311F54EC610087F29F /* AddContactsViewController.swift */; };
 		CB1A8A451F54F63B0087F29F /* NotificationFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1A8A441F54F63B0087F29F /* NotificationFile.swift */; };
+		CB1D74081FE86900002743BA /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1D74071FE86900002743BA /* WelcomeViewController.swift */; };
 		CB2098D91FAFF4BF0067F8FA /* MenuTooViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2098D81FAFF4BF0067F8FA /* MenuTooViewController.swift */; };
 		CB2098DB1FAFF5EC0067F8FA /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2098DA1FAFF5EC0067F8FA /* MenuTableViewCell.swift */; };
 		CB22FA391F52428800973823 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB22FA381F52428800973823 /* AppDelegate.swift */; };
@@ -34,9 +36,8 @@
 		CB4BE5C41FB9D497008CDD8C /* EventsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4BE5C31FB9D497008CDD8C /* EventsDetailViewController.swift */; };
 		CB5251891FAFD94800C49709 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB5251881FAFD94700C49709 /* GoogleService-Info.plist */; };
 		CB52518B1FAFDD3000C49709 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52518A1FAFDD3000C49709 /* LoginViewController.swift */; };
-		CB52518D1FAFE6E400C49709 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52518C1FAFE6E400C49709 /* WelcomeViewController.swift */; };
 		CB54C56E1FB9FC5A00CE108F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB22FA471F52428800973823 /* Info.plist */; };
-		CB819D361FBA702E00A94471 /* ios_license.dms in Resources */ = {isa = PBXBuildFile; fileRef = CB819D351FBA702E00A94471 /* ios_license.dms */; };
+		CB819D361FBA702E00A94471 /* ios_license_old.dms in Resources */ = {isa = PBXBuildFile; fileRef = CB819D351FBA702E00A94471 /* ios_license_old.dms */; };
 		CB819D381FBA713600A94471 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB819D371FBA713600A94471 /* ViewController.swift */; };
 		CB97BAFA1FB91FF9004E1232 /* ImageWriterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB97BAF91FB91FF9004E1232 /* ImageWriterViewController.swift */; };
 		CB97BAFC1FB93428004E1232 /* Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB97BAFB1FB93428004E1232 /* Staff.swift */; };
@@ -93,12 +94,14 @@
 		95270A9BB86F2E85F52FB35C /* Pods_buildingTrades_OneSignalNotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_buildingTrades_OneSignalNotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97E113C140C99DB3A4CFABC5 /* Pods-buildingTrades.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-buildingTrades.release.xcconfig"; path = "Pods/Target Support Files/Pods-buildingTrades/Pods-buildingTrades.release.xcconfig"; sourceTree = "<group>"; };
 		982DD0633404D855CD38B527 /* Pods_buildingTradesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_buildingTradesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB1951D9201502FC001B2CFA /* ios_license.dms */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ios_license.dms; path = ../../Downloads/ios_license.dms; sourceTree = "<group>"; };
 		CB1A8A2B1F54E00C0087F29F /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		CB1A8A2D1F54E51F0087F29F /* Contractors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contractors.swift; sourceTree = "<group>"; };
 		CB1A8A2F1F54E6010087F29F /* ContractorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractorTableViewCell.swift; sourceTree = "<group>"; };
 		CB1A8A311F54EC610087F29F /* AddContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContactsViewController.swift; sourceTree = "<group>"; };
 		CB1A8A331F54F3700087F29F /* buildingTrades.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = buildingTrades.entitlements; sourceTree = "<group>"; };
 		CB1A8A441F54F63B0087F29F /* NotificationFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationFile.swift; sourceTree = "<group>"; };
+		CB1D74071FE86900002743BA /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		CB2098D81FAFF4BF0067F8FA /* MenuTooViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTooViewController.swift; sourceTree = "<group>"; };
 		CB2098DA1FAFF5EC0067F8FA /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		CB22FA351F52428800973823 /* buildingTrades.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = buildingTrades.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,8 +127,7 @@
 		CB4BE5C31FB9D497008CDD8C /* EventsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsDetailViewController.swift; sourceTree = "<group>"; };
 		CB5251881FAFD94700C49709 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB52518A1FAFDD3000C49709 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		CB52518C1FAFE6E400C49709 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		CB819D351FBA702E00A94471 /* ios_license.dms */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ios_license.dms; sourceTree = "<group>"; };
+		CB819D351FBA702E00A94471 /* ios_license_old.dms */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ios_license_old.dms; sourceTree = "<group>"; };
 		CB819D371FBA713600A94471 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CB97BAF91FB91FF9004E1232 /* ImageWriterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWriterViewController.swift; sourceTree = "<group>"; };
 		CB97BAFB1FB93428004E1232 /* Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Staff.swift; sourceTree = "<group>"; };
@@ -206,7 +208,8 @@
 		CB22FA2C1F52428800973823 = {
 			isa = PBXGroup;
 			children = (
-				CB819D351FBA702E00A94471 /* ios_license.dms */,
+				CB819D351FBA702E00A94471 /* ios_license_old.dms */,
+				CB1951D9201502FC001B2CFA /* ios_license.dms */,
 				CBECD0CD1FB9764600277347 /* FacebookViewController.swift */,
 				CB22FA371F52428800973823 /* buildingTrades */,
 				CB22FA4F1F52428800973823 /* buildingTradesTests */,
@@ -234,6 +237,7 @@
 				CB1A8A331F54F3700087F29F /* buildingTrades.entitlements */,
 				CB22FA381F52428800973823 /* AppDelegate.swift */,
 				CBA6F0501F53C7E40049F821 /* Main.storyboard */,
+				CB1D74071FE86900002743BA /* WelcomeViewController.swift */,
 				CB819D371FBA713600A94471 /* ViewController.swift */,
 				CB4BE5C51FB9D49F008CDD8C /* Events */,
 				CB4BE5C21FB9D465008CDD8C /* videos */,
@@ -342,7 +346,6 @@
 				CB1A8A2F1F54E6010087F29F /* ContractorTableViewCell.swift */,
 				CB1A8A2B1F54E00C0087F29F /* ContactsViewController.swift */,
 				CB1A8A311F54EC610087F29F /* AddContactsViewController.swift */,
-				CB52518C1FAFE6E400C49709 /* WelcomeViewController.swift */,
 				CB97BAF91FB91FF9004E1232 /* ImageWriterViewController.swift */,
 			);
 			path = contacts;
@@ -476,8 +479,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB819D361FBA702E00A94471 /* ios_license.dms in Resources */,
+				CB819D361FBA702E00A94471 /* ios_license_old.dms in Resources */,
 				CB22FA461F52428800973823 /* LaunchScreen.storyboard in Resources */,
+				CB1951DA201502FC001B2CFA /* ios_license.dms in Resources */,
 				CB5251891FAFD94800C49709 /* GoogleService-Info.plist in Resources */,
 				CB22FA431F52428800973823 /* Assets.xcassets in Resources */,
 				CB54C56E1FB9FC5A00CE108F /* Info.plist in Resources */,
@@ -687,7 +691,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBAA74C11F5326BC005D9C8C /* MapMainViewController.swift in Sources */,
-				CB52518D1FAFE6E400C49709 /* WelcomeViewController.swift in Sources */,
 				CBECD0CE1FB9764600277347 /* FacebookViewController.swift in Sources */,
 				CB1A8A2C1F54E00C0087F29F /* ContactsViewController.swift in Sources */,
 				CBEB97111FB903BC005DCF04 /* UserAccountViewController.swift in Sources */,
@@ -695,6 +698,7 @@
 				CB36B8A41F524F2A00E0C706 /* MenuViewController.swift in Sources */,
 				CBECD0D01FB9C65100277347 /* VideoViewController.swift in Sources */,
 				CB52518B1FAFDD3000C49709 /* LoginViewController.swift in Sources */,
+				CB1D74081FE86900002743BA /* WelcomeViewController.swift in Sources */,
 				CBAA74C31F532BEF005D9C8C /* NodeLocations.swift in Sources */,
 				CBAA74CA1F53AF15005D9C8C /* SiteDetailViewController.swift in Sources */,
 				CB4BE5BF1FB9C95A008CDD8C /* Media.swift in Sources */,

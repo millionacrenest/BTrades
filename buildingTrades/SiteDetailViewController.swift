@@ -25,6 +25,7 @@ class SiteDetailViewController: UIViewController, MKMapViewDelegate, UITextField
     
     let userID = Auth.auth().currentUser!.uid
     var items: [Comments] = []
+    var localtag = UserDefaults.standard.string(forKey: "localtag")
     
     
   
@@ -71,7 +72,7 @@ class SiteDetailViewController: UIViewController, MKMapViewDelegate, UITextField
         NotificationCenter.default.addObserver(self, selector: #selector(SiteDetailViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SiteDetailViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        let nodesRef = ref.child("nodeLocations")
+        let nodesRef = ref.child("nodeLocations").child(localtag!)
         let queryRef = nodesRef.queryOrderedByKey().queryEqual(toValue: varToReceive)
         let commentRef = nodesRef.child(varToReceive).child("comments")
         

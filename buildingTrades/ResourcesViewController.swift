@@ -14,22 +14,23 @@ class ResourcesViewController: UIViewController, UITableViewDataSource, UITableV
 
     @IBOutlet weak var tableView: UITableView!
     var valueToPass: String!
-    var localTag: String?
+    var localtag = UserDefaults.standard.string(forKey: "localtag")
     let userID = Auth.auth().currentUser!.uid
-    let resourcesRef = Database.database().reference(withPath: "resources")
+    let resourcesRef = Database.database().reference().child("resources")
     let refUser = Database.database().reference().child("users")
     
     var items: [Website] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getUsers()
+       
+        
         
         
       //  let query = resourcesRef.queryOrdered(byChild: "nothing").queryEqual(toValue: localTag!)
         
        
-        resourcesRef.observe(.value, with: { snapshot in
+        resourcesRef.child(localtag!).observe(.value, with: { snapshot in
             // 2
             var frontpages: [Website] = []
             
@@ -55,24 +56,7 @@ class ResourcesViewController: UIViewController, UITableViewDataSource, UITableV
         // Do any additional setup after loading the view.
     }
 
-    func getUsers() {
-        let query = refUser.queryOrdered(byChild: "field_uid").queryEqual(toValue: userID)
-        query.observe(.value, with: { snapshot in
-            // 2
-            var frontpages: [Staff] = []
-            
-            for item in snapshot.children {
-                // 4
-                let groceryItem = Staff(snapshot: item as! DataSnapshot)
-                
-                
-                self.localTag = groceryItem?.nothing
-                print("Localtag: \(self.localTag!)")
-                
-            }
-            
-        })
-    }
+
     
 
     func numberOfSections(in tableView: UITableView) -> Int {

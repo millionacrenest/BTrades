@@ -15,6 +15,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     let userID = Auth.auth().currentUser!.uid
     var items: [Staff] = []
     var ref = Database.database().reference()
+    var localtag = UserDefaults.standard.string(forKey: "localtag")
     let contactsRef = Database.database().reference(withPath: "users")
     
     override func viewDidLoad() {
@@ -22,7 +23,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.delegate = self
         tableView.dataSource = self
         
-        contactsRef.observe(.value, with: { snapshot in
+        contactsRef.child(localtag!).observe(.value, with: { snapshot in
             // 2
             var contractors: [Staff] = []
             

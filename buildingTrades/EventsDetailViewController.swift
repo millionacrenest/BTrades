@@ -27,7 +27,7 @@ class EventsDetailViewController: UIViewController {
     @IBOutlet weak var bodyTextView: UITextView!
     
     
-    
+    var localtag = UserDefaults.standard.string(forKey: "localtag")
     
     let aboutRef = Database.database().reference(withPath: "events")
     var passedValue: String!
@@ -39,7 +39,7 @@ class EventsDetailViewController: UIViewController {
         
         
         
-        aboutRef.child(passedValue).observeSingleEvent(of: .value, with: {
+        aboutRef.child(localtag!).child(passedValue).observeSingleEvent(of: .value, with: {
             (snapshot:DataSnapshot!) in
             
             // Get user value

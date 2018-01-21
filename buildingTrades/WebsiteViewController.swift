@@ -7,16 +7,23 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class WebsiteViewController: UIViewController {
 
+    
+    var website = UserDefaults.standard.string(forKey: "website")
     @IBOutlet weak var webView: UIWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
+      //  fetchSites()
 
-        let url = NSURL (string: "https://www.seattlebt.info");
-        let request = NSURLRequest(url: url! as URL);
-        webView.loadRequest(request as URLRequest);
+        let url = NSURL (string: website!)
+        let request = NSURLRequest(url: url! as URL)
+        DispatchQueue.main.async {
+        self.webView.loadRequest(request as URLRequest)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,14 +32,20 @@ class WebsiteViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
+//    func fetchSites() {
+//
+//        locationsRef.observe(.value, with: { snapshot in
+//
+//            var frontpages: [Website] = []
+//
+//            for item in snapshot.children {
+//                let groceryItem = Website(snapshot: item as! DataSnapshot)
+//                self.urlString = (groceryItem?.field_web_address)!
+//
+//            }
+//
+//        })
+//    }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

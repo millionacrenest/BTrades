@@ -14,14 +14,14 @@ import YouTubePlayer
 class VideoPlayerViewController: UIViewController {
     
     @IBOutlet weak var videoPlayer: YouTubePlayerView!
-    
-    let videoRef = Database.database().reference(withPath: "video")
+    var localtag = UserDefaults.standard.string(forKey: "localtag")
+    let videoRef = Database.database().reference(withPath: "videos")
     var passedValue: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        videoRef.child(passedValue!).observeSingleEvent(of: .value, with: {
+        videoRef.child(localtag!).child(passedValue!).observeSingleEvent(of: .value, with: {
             (snapshot:DataSnapshot!) in
             
             // Get user value
