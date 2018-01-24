@@ -27,6 +27,7 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     let regionRadius: CLLocationDistance = 1000
     var varToPass: String!
     var localtag: String?
+    var key: String?
   //  let userID = Auth.auth().currentUser!.uid
 
     let locationsRef = Database.database().reference(withPath: "nodeLocations")
@@ -103,12 +104,12 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
                 let latitude = locationValue["latitude"] as! CLLocationDegrees
                 let longitude = locationValue["longitude"] as! CLLocationDegrees
                 let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                let key = locationData.key
+                self.key = locationData.key
                 
                 let dropPin = MKPointAnnotation()
                 dropPin.coordinate = location
                 dropPin.title = name
-                dropPin.subtitle = key
+                dropPin.subtitle = tags
                 //
                 
                 self.mapView?.removeAnnotation(dropPin)
@@ -145,7 +146,8 @@ class MapMainViewController: UIViewController, CLLocationManagerDelegate, MKMapV
 
     func mapView(_ mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
-        varToPass = annotationView.annotation!.subtitle!!
+        //varToPass = annotationView.annotation!.subtitle!!
+        varToPass = self.key
         
         mapView.deselectAnnotation(annotationView.annotation, animated: false)
         

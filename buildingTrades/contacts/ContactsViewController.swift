@@ -12,6 +12,9 @@ import Firebase
 class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    
+    
     let userID = Auth.auth().currentUser!.uid
     var items: [Staff] = []
     var ref = Database.database().reference()
@@ -64,6 +67,15 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         let contact = items[indexPath.row]
         cell.nameLabel.text = "\(contact.field_full_name!) | \(contact.nothing!)"
         cell.bodyField.text = "\(contact.name!)"
+        var imageProfile = contact.field_profile_picture
+        
+        let url = URL(string: imageProfile!)
+        let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+        cell.profileImageView.image = UIImage(data: data!)
+        
+        
+      
+        
         
        
         

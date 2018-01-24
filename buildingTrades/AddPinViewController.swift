@@ -27,7 +27,8 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     
     
     
-  
+    @IBOutlet var locatnionNotesField: UITextField!
+    
     
     
     @IBOutlet weak var coordinatesLabel: UILabel!
@@ -308,11 +309,12 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
                 var refNodeLocationsShared = Database.database().reference().child("nodeLocations/\(self.tagHere!)")
             
             //creating artist with the given values
-                let nodeLocation = ["name": self.locationName.text! as String,
+                let nodeLocation = ["name": self.locationName.text,
                                     "localtag": self.localtag,
                                     "sharedWith": self.tagHere,
                                     "latitude": self.latitude as Double,
                                     "longitude": self.longitude as Double,
+                                    "locationNotes": self.locatnionNotesField.text,
                                     "image": self.locationImageUrl as! String,
                                     "UID": "\(self.userID)"] as [String : Any]
             
@@ -323,9 +325,10 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
                 self.refNodeLocations.child(key).setValue(nodeLocation)
         } else {
             //creating artist with the given values
-                let nodeLocation = ["name": self.locationName.text! as String,
+                let nodeLocation = ["name": self.locationName.text,
+                                    "locationNotes": self.locatnionNotesField.text,
                                     "localtag": self.localtag,
-                                "sharedWith": "SBT",
+                                "sharedWith": self.tagHere,
                                 "latitude": self.latitude as Double,
                                 "longitude": self.longitude as Double,
                                 "image": self.locationImageUrl as! String,

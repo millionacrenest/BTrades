@@ -25,7 +25,7 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
     var ref = Database.database().reference()
     var varToReceive: String!
     var newMedia: Bool!
-    var commentImageURL: String!
+    var commentImageURL: String = ""
     var storage: Storage!
     var localtag = UserDefaults.standard.string(forKey: "localtag")
     
@@ -46,7 +46,7 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
         commentTitle.delegate = self
         commentBody.delegate = self
         var commentsRef = Database.database().reference().child("contacts")
-        
+         print("commentImageURL in viewDidLoad: \(commentImageURL)")
        
         picker.delegate = self
         
@@ -55,6 +55,9 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
 
         // Do any additional setup after loading the view.
     }
+    
+   
+    
     
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -107,7 +110,7 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
         }
         //myImageView.contentMode = .scaleAspectFit //3
         self.dismiss(animated: true, completion: nil)
-         savePhoto()
+        
         
     }
     
@@ -143,18 +146,29 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
         
         let thisLocationRef = locationsRef.child(varToReceive)
         
-        let thisUserPostRef = thisLocationRef.child("comments")
+       // let thisUserPostRef = thisLocationRef.child("comments")
+        let thisUserPostRef = ref.child("post-comments").child(varToReceive!)
         let thisCommentPostRef = thisUserPostRef.childByAutoId //create a new post node
         
         let comment = commentTitle.text!
         let body = commentBody.text!
         let image = commentImageURL as String!
-        let date = "today"
+        
+        let dateT = Date()
+        let calendar = Calendar.current
+        let hourT = calendar.component(.hour, from: dateT)
+        let minutes = calendar.component(.minute, from: dateT)
+        let dayT = calendar.component(.day, from: dateT)
+        let monthT = calendar.component(.month, from: dateT)
+        let yearT = calendar.component(.year, from: dateT)
+        
+        
+        let date = "\(monthT)/\(dayT)/\(yearT)"
        
         let newComment = ["comment": comment, "body": body, "image": image, "date": date, "UID": userID] as [String : Any]
         
         
-        thisCommentPostRef().setValue(newComment)
+        thisUserPostRef.childByAutoId().setValue(newComment)
         
         let alertController = UIAlertController(title: "Success", message: "Comment has been posted.", preferredStyle: .alert)
         
@@ -223,33 +237,44 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     }
     
-    func savePhoto(){
-        // Get a reference to the location where we'll store our photos
-        let photosRef = storage.reference().child("images")
+//    func savePhoto(){
+//        // Get a reference to the location where we'll store our photos
+//        let photosRef = storage.reference().child("images")
+//
+//        // Get a reference to store the file at chat_photos/<FILENAME>
+//        let filename = arc4random()
+//        let photoRef = photosRef.child("\(filename).png")
+//
+//        // Upload file to Firebase Storage
+//        let metadata = StorageMetadata()
+//        metadata.contentType = "image/png"
+//        let imageData = UIImageJPEGRepresentation(commentImageView.image!, 0.3)!
+//        photoRef.putData(imageData, metadata: metadata).observe(.success) { (snapshot) in
+//            // When the image has successfully uploaded, we get it's download URL
+//            // self.imageUpoadingLabel.text = "Upload complete"
+//
+//            let text = snapshot.metadata?.downloadURL()?.absoluteString
+//
+//            // Set the download URL to the message box, so that the user can send it to the database
+//            self.commentImageURL = text!
+//
+//
+//        }
+//        let url = URL(string: commentImageURL)
+//        print("commentImageURL in viewDidAppear: \(commentImageURL)")
+//
+//        DispatchQueue.global().async {
+//            let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+//            DispatchQueue.main.async {
+//                self.commentImageView.image = UIImage(data: data!)
+//            }
+//        }
+    
         
-        // Get a reference to store the file at chat_photos/<FILENAME>
-        let filename = arc4random()
-        let photoRef = photosRef.child("\(filename).png")
-        
-        // Upload file to Firebase Storage
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/png"
-        let imageData = UIImageJPEGRepresentation(commentImageView.image!, 0.3)!
-        photoRef.putData(imageData, metadata: metadata).observe(.success) { (snapshot) in
-            // When the image has successfully uploaded, we get it's download URL
-            // self.imageUpoadingLabel.text = "Upload complete"
-            
-            let text = snapshot.metadata?.downloadURL()?.absoluteString
-            
-            // Set the download URL to the message box, so that the user can send it to the database
-            self.commentImageURL = text!
-        }
         
         
         
-        
-        
-    }
+ //   }
     
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -292,6 +317,7 @@ class CommentPostViewController: UIViewController, UITextFieldDelegate, UIImageP
             if let data = data {
                 let photo = Photo(data: data)
                 cameraViewController.present(self.createPhotoEditViewController(with: photo), animated: true, completion: nil)
+                //self.savePhoto()
                 
                 
             }
@@ -397,6 +423,10 @@ extension CommentPostViewController: PhotoEditViewControllerDelegate {
             let text = snapshot.metadata?.downloadURL()?.absoluteString
             // Set the download URL to the message box, so that the user can send it to the database
             self.commentImageURL = text!
+            let url = URL(string: self.commentImageURL)
+            let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+            self.commentImageView.image = UIImage(data: data!)
+           
             
             
         }
@@ -417,6 +447,8 @@ extension CommentPostViewController: PhotoEditViewControllerDelegate {
         dismiss(animated: true, completion: nil)
     }
 }
+
+
 
 
 

@@ -19,9 +19,16 @@ class SiteDetailViewController: UIViewController, MKMapViewDelegate, UITextField
     @IBOutlet weak var siteImage: UIImageView!
     @IBOutlet weak var locationNameTextField: UILabel!
    
+    @IBOutlet var sharedWithLabel: UILabel!
+    
     @IBOutlet weak var locationTags: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
+    
+    
+    @IBOutlet var locationNotesTextView: UITextView!
+    
+    
     
     let userID = Auth.auth().currentUser!.uid
     var items: [Comments] = []
@@ -44,6 +51,7 @@ class SiteDetailViewController: UIViewController, MKMapViewDelegate, UITextField
     let cellIdentifier = "commentCell"
     var storage: Storage!
     var newMedia: Bool?
+    var sharedW: String = ""
     
     let picker = UIImagePickerController()
     
@@ -56,6 +64,10 @@ class SiteDetailViewController: UIViewController, MKMapViewDelegate, UITextField
     override func viewDidLoad() {
         super.viewDidLoad()
         picker.delegate = self
+        //self.deleteSite.isEnabled = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(taskOne(sender:)))
+        
+        
         
 //        locationNameTextField.delegate = self
 //        addCommentsTextField.delegate = self
@@ -65,6 +77,10 @@ class SiteDetailViewController: UIViewController, MKMapViewDelegate, UITextField
        
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 250
+//        
+
+        
+        
 
         
        
@@ -74,7 +90,8 @@ class SiteDetailViewController: UIViewController, MKMapViewDelegate, UITextField
         
         let nodesRef = ref.child("nodeLocations").child(localtag!)
         let queryRef = nodesRef.queryOrderedByKey().queryEqual(toValue: varToReceive)
-        let commentRef = nodesRef.child(varToReceive).child("comments")
+        let commentRef = ref.child("post-comments").child(varToReceive)
+        
         
         storage = Storage.storage()
         
@@ -84,15 +101,27 @@ class SiteDetailViewController: UIViewController, MKMapViewDelegate, UITextField
                 guard let nodeSnap = snap as? DataSnapshot else { continue }
                 let id = nodeSnap.key
                 guard let nodeDict = nodeSnap.value as? [String:AnyObject]  else { continue }
-                let name = nodeDict["title"] as? String
+                let name = nodeDict["name"] as? String
                 
                 
                 let tags = nodeDict["localtag"] as? String
                 let imageString = nodeDict["image"] as? String
+                var sharedW = nodeDict["sharedWith"] as? String
+                var notes = nodeDict["locationNotes"] as? String
                 
                 self.locationNameTextField.text = name
                 
-                self.locationTags.text = tags
+                
+                    self.locationTags.text = tags
+                
+                self.sharedWithLabel.text = sharedW
+                
+                self.locationNotesTextView.text = notes
+                
+                
+                
+                
+                
                 
                 if let url = NSURL(string: imageString!) {
                     if let data = NSData(contentsOf: url as URL) {
@@ -137,6 +166,16 @@ class SiteDetailViewController: UIViewController, MKMapViewDelegate, UITextField
         
         
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+                if userID == "34767029-f38b-4b67-9021-6d3825fce1b9" {
+                    print("uid match: \(userID)")
+                } else {
+                    self.navigationItem.rightBarButtonItem = nil
+                    print("no uid match: \(userID)")
+        
+                }
     }
     
     
@@ -203,8 +242,13 @@ class SiteDetailViewController: UIViewController, MKMapViewDelegate, UITextField
         cell.bodyView?.text = comment.body
         cell.dateCreatedLabel?.text = comment.dateCreated
         
+        var commentImage: String? = nil
+        commentImage = comment.image
         
-        cell.imageStringView.sd_setImage(with: URL(string: comment.image!), placeholderImage: UIImage(named: "https://cdn.pixabay.com/photo/2017/08/12/00/17/like-2633137_1280.png"))
+       
+        
+        cell.imageStringView.sd_setImage(with: URL(string: commentImage!), placeholderImage: UIImage(named: "https://cdn.pixabay.com/photo/2017/08/12/00/17/like-2633137_1280.png"))
+        
  
         return cell
     }
@@ -317,6 +361,22 @@ class SiteDetailViewController: UIViewController, MKMapViewDelegate, UITextField
 //    }
     
    
+
+    
+    @objc func taskOne(sender: UIBarButtonItem) {
+        
+    
+        
+        print("key: \(varToReceive), localtag: \(localtag), sharedW: \(sharedW)")
+
+        let ref = Database.database().reference().child("nodeLocations")// see above how to fetch the id
+        ref.child(varToReceive).removeValue()
+        ref.child(localtag!).child(varToReceive).removeValue()
+        ref.child(sharedW).child(varToReceive).removeValue()
+    }
+    
+    
+    
     
     
 }

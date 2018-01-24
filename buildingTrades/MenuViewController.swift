@@ -41,7 +41,8 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
+        
             ////// do your remaining work
         getItems()
         
@@ -55,7 +56,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.view.addGestureRecognizer(swipeRight)
         self.view.addGestureRecognizer(swipeLeft)
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 140
+        tableView.estimatedRowHeight = 492
         tableView.tableFooterView = UIView()
 
     }
@@ -91,6 +92,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         cell.captionLabel.text = groceryItem.title
+        
       
         cell.picture.sd_setImage(with: URL(string: imageString), placeholderImage: UIImage(named: "129968.jpg"))
         cell.textBodyView.text = groceryItem.body
@@ -168,8 +170,8 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             // 5
             self.items = frontpages
             self.tableView.reloadData()
-            self.tableView.rowHeight = UITableViewAutomaticDimension
-            self.tableView.estimatedRowHeight = 150
+//            self.tableView.rowHeight = UITableViewAutomaticDimension
+//            self.tableView.estimatedRowHeight = 492
             
             
         })
