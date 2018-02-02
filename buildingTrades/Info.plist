@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>CALIBRATE</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconName</key>
@@ -30,12 +32,14 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Access your camera to add photos to notes</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app needs your current location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Let us set your location</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Share your location with us to add notes to the map</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Share your location to add notes to the map</string>
+	<string>This app needs your current location</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Access your library to upload photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>

@@ -322,7 +322,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
             
             refNodeLocationsLocal.child(key).setValue(nodeLocation)
             refNodeLocationsShared.child(key).setValue(nodeLocation)
-                self.refNodeLocations.child(key).setValue(nodeLocation)
+              //  self.refNodeLocations.child(key).setValue(nodeLocation)
         } else {
             //creating artist with the given values
                 let nodeLocation = ["name": self.locationName.text,
@@ -336,7 +336,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate, CLLocationManag
             
             //adding the artist inside the generated unique key
             refNodeLocationsLocal.child(key).setValue(nodeLocation)
-                self.refNodeLocations.child(key).setValue(nodeLocation)
+             //   self.refNodeLocations.child(key).setValue(nodeLocation)
             
                 }
             

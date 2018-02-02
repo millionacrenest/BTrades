@@ -10,7 +10,7 @@ import UIKit
 
 class MenuTooViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let links_arr = ["News", "Job Sites", "Contacts", "Resources", "Videos", "Events", "Facebook", "Website", "User Account"]
+    let links_arr = ["News", "Job Sites", "Contacts", "Resources", "Videos", "Facebook", "Website", "User Account"]
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -42,7 +42,7 @@ class MenuTooViewController: UIViewController, UITableViewDelegate, UITableViewD
         let row = links_arr[indexPath.row]
         
         if indexPath.row == 0 {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Home")
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Menu")
             self.present(vc!, animated: true, completion: nil)
             
         }
@@ -67,23 +67,23 @@ class MenuTooViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         
+//        if indexPath.row == 5 {
+//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Events")
+//            self.present(vc!, animated: true, completion: nil)
+//
+//        }
+//
         if indexPath.row == 5 {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Events")
-            self.present(vc!, animated: true, completion: nil)
-        
-        }
-        
-        if indexPath.row == 6 {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "Facebook")
             self.present(vc!, animated: true, completion: nil)
             
         }
-        if indexPath.row == 7 {
+        if indexPath.row == 6 {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "Website")
             self.present(vc!, animated: true, completion: nil)
             
         }
-        if indexPath.row == 8 {
+        if indexPath.row == 7 {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserTools")
             self.present(vc!, animated: true, completion: nil)
             
