@@ -13,13 +13,13 @@ import FirebaseDatabase
 class WebsiteViewController: UIViewController {
 
     
-    var website = UserDefaults.standard.string(forKey: "website")
+    var website = "https://www.seattlebuildingtrades.net"
     @IBOutlet weak var webView: UIWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
       //  fetchSites()
 
-        let url = NSURL (string: website!)
+        let url = NSURL (string: website)
         let request = NSURLRequest(url: url! as URL)
         DispatchQueue.main.async {
         self.webView.loadRequest(request as URLRequest)

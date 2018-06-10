@@ -190,7 +190,7 @@
             </objects>
             <point key="canvasLocation" x="2392.8000000000002" y="-618.44077961019491"/>
         </scene>
-        <!--News-->
+        <!--Seattle Building Trades-->
         <scene sceneID="EYV-Lp-fd0">
             <objects>
                 <viewController storyboardIdentifier="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vq0-5R-zVx" customClass="MenuViewController" customModule="buildingTrades" customModuleProvider="target" sceneMemberID="viewController">
@@ -273,7 +273,7 @@
                             <constraint firstItem="GbL-Wi-NAb" firstAttribute="top" secondItem="dGg-I5-xXf" secondAttribute="bottom" id="Cxd-zy-sbb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="News" id="zEk-c1-fJU">
+                    <navigationItem key="navigationItem" title="Seattle Building Trades" id="zEk-c1-fJU">
                         <barButtonItem key="leftBarButtonItem" title="Menu" id="0RH-Sx-rOf">
                             <connections>
                                 <action selector="menuTapped:" destination="vq0-5R-zVx" id="I7l-iH-wFR"/>
